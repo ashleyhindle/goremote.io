@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class TestSourceCommand extends \Knp\Command\Command
 {
+	private $app;
+
 	protected function configure()
 	{
 		$this
@@ -21,6 +23,8 @@ class TestSourceCommand extends \Knp\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
+		$this->app = $this->getSilexApplication();
+
 		$source = $input->getArgument('source');
 		$output->writeln("Testing Source: {$source}");
 		$modelFile = $this->getProjectDirectory() . '/Model/' . $source . 'Model.php';
@@ -29,12 +33,39 @@ class TestSourceCommand extends \Knp\Command\Command
 			return 1; // exit code of 1 is 'not successful'
 		}
 
+		$jobDuplicateCount = 0;
 		require_once $modelFile;
 		$className = "\\GoRemote\\Model\\{$source}Model";
 		$source = new $className;
 
 		foreach($source->getJobs() as $job) {
-			print_r($job);
+			if ($jobDuplicateCount > 4) {
+				$output->writeln("Too many duplicate jobs, must be up to date so stopping");
+				break;
+			}
+
+			$jobDuplicate = $this->app['db']->fetchColumn(
+				'select jobid from jobs where dateadded=? and sourceid=? and applyurl=?',
+				[
+					(string) $job->dateadded,
+					(int) $job->sourceid,
+					(string) $job->applyurl
+				]);
+
+
+			if ($jobDuplicate) {
+				$jobDuplicateCount++;
+				continue;
+			}
+
+			$this->app['db']->insert('jobs', [
+				'applyurl' => $job->applyurl,
+				'position' => $job->position,
+				'dateadded' => $job->dateadded,
+				'description' => $job->description,
+				'sourceid' => 99,
+				'companyid' => 99,
+				]);
 		}
 
 		return 0; // exit code of 0 is 'successful'

@@ -87,9 +87,9 @@ $app->register(new DoctrineServiceProvider());
 
 $app["db.options"] = [
     "driver" => "pdo_mysql",
-    "host"      => getenv('APP_MYSQL_HOSTNAME'),
-    "dbname"    => getenv('APP_MYSQL_DATABASE'),
-    "user"      => getenv('APP_MYSQL_USERNAME'),
+    "host"      => getenv('APP_MYSQL_HOSTNAME') ?: 'localhost',
+    "dbname"    => getenv('APP_MYSQL_DATABASE') ?: 'goremote',
+    "user"      => getenv('APP_MYSQL_USERNAME') ?: 'goremote',
     "password"  => getenv('APP_MYSQL_PASSWORD')
 ];
 

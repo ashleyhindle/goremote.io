@@ -44,13 +44,10 @@ class WeWorkRemotelyModel
 				['<div>', '</div>', '</ul>', '<br />'],
 				['', "\n", "\n", "\n"],
 				(string) $job->description)));
-			$jobClass->sourceid = self::SOURCE_NAME;
-			$jobClass->companyid = self::SOURCE_NAME;
+			$jobClass->sourceid = 99;
+			$jobClass->companyid = 99;
 
 			$jobs[] = $jobClass;
-			print_r($job);
-			print_r($jobs);
-			exit;
 		}
 
 		return $jobs;
