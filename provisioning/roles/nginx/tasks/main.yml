@@ -1,0 +1,18 @@
+---
+- name: Install Nginx
+  apt: pkg=nginx state=latest
+
+- name: Move proxy Config
+  copy: src=proxy.conf dest=/etc/nginx/proxy.conf mode=0755
+
+- name: Change default nginx site
+  template: src=default.j2 dest=/etc/nginx/sites-enabled/default
+  notify: restart nginx
+
+- shell: grep ^processor /proc/cpuinfo | wc -l
+  register: processor_count
+  ignore_errors: True
+
+- name: Copy over NGINX Config
+  template: src=conf.j2 dest=/etc/nginx/nginx.conf
+  notify: restart nginx

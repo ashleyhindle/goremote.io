@@ -1,0 +1,45 @@
+{
+    "name": "theahindle/smelly-skeleton",
+    "description": "Silex/Vagrant/ZurbFoundation skeleton, with ansible provisioning for Nginx/Php5.5/Memcache/Beanstalk using composer/bower/gulp",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.5",
+        "twig/twig": ">=1.8.0,<2.0-dev",
+        "silex/silex": "~1.2",
+        "silex/web-profiler": "~1.0",
+        "doctrine/dbal": "~2.5",
+        "igorw/config-service-provider": "1.2.*@dev",
+        "symfony/twig-bridge": "2.5.6",
+        "symfony/class-loader": "2.5.6",
+        "symfony/monolog-bridge": "2.5.6",
+        "symfony/debug": "2.5.6",
+        "geoip2/geoip2": "0.7.0",
+        "symfony/security": "2.5.6",
+        "mheap/Silex-Memcache": "*@dev",
+        "knplabs/console-service-provider": "dev-master",
+        "swiftmailer/swiftmailer": "5.3.0",
+        "pda/pheanstalk": "dev-master",
+        "lewisbaker/silex-pheanstalk": "dev-master"
+    },
+    "require-dev": {
+        "phpmd/phpmd" : "@stable",
+        "squizlabs/php_codesniffer": "2.*"
+    },
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "scripts": {
+      "post-create-project-cmd": [
+        "npm install"
+      ],
+      "post-install-cmd": [
+        "node_modules/bower/bin/bower install",
+        "node_modules/gulp/bin/gulp.js copy-foundation"
+      ],
+      "post-update-cmd": [
+        "node_modules/bower/bin/bower install",
+        "node_modules/gulp/bin/gulp.js copy-foundation"
+      ]
+    }
+}

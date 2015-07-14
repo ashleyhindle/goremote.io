@@ -1,0 +1,39 @@
+---
+- name: Add PPA for latest PHP5.5
+  apt_repository: repo='deb http://ppa.launchpad.net/ondrej/php5/ubuntu trusty main' state=present
+
+- name: Add PPA for latest PHP5.5 SRC
+  apt_repository: repo='deb-src http://ppa.launchpad.net/ondrej/php5/ubuntu trusty main' state=present
+
+- name: Install php-fpm and dependencies
+  apt: pkg={{ item }} state=present update_cache=yes force=yes
+  with_items:
+  - php5-fpm
+  - php5-cli
+  - php5-mysql
+  - php5-mcrypt
+  - php5-curl
+  - php5-geoip
+  - php5-memcached
+  - php5-xdebug
+  - php5-xsl
+  - php5-gd
+    
+- name: Disable default pool
+  command: mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/www.disabled creates=/etc/php5/fpm/pool.d/www.disabled
+  notify: restart php5-fpm
+
+- name: Copy php5-fpm pool configuration
+  template: src=myprojectpool.j2 dest=/etc/php5/fpm/pool.d/myprojectpool.conf
+  notify: restart php5-fpm
+
+- name: Copy php5-fpm config
+  template: src=conf.j2 dest=/etc/php5/fpm/php-fpm.conf
+  notify: restart php5-fpm
+
+- name: Copy php.ini file
+  template: src=phpini.j2 dest=/etc/php5/fpm/php.ini
+  notify: restart php5-fpm
+
+- name: Enable mcrypt module
+  command: php5enmod mcrypt

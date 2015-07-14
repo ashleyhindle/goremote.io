@@ -1,0 +1,119 @@
+#Tweaking aided by http://tweaked.io/guide/nginx/ dsimkus
+
+user www-data;
+worker_processes {{ processor_count.stdout|default(4) }};
+pid /run/nginx.pid;
+
+events {
+    worker_connections 8096;
+    multi_accept on;
+    use epoll;
+}
+
+worker_rlimit_nofile 40000;
+
+http {
+    #load balancer compensation
+    real_ip_header X-Forwarded-For;
+    set_real_ip_from 192.168.255.0/24;
+
+    ##
+    # Basic Settings
+    ##
+
+    client_max_body_size 8M;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 15;
+    types_hash_max_size 2048;
+    server_tokens off;
+
+    # server_names_hash_bucket_size 64;
+    # server_name_in_redirect off;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ##
+    # Logging Settings
+    ##
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    ##
+    # Gzip Settings
+    ##
+
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 10240;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml;
+    gzip_disable "MSIE [1-6]\.";
+
+    ##
+    # nginx-naxsi config
+    ##
+    # Uncomment it if you installed nginx-naxsi
+    ##
+
+    #include /etc/nginx/naxsi_core.rules;
+
+    ##
+    # nginx-passenger config
+    ##
+    # Uncomment it if you installed nginx-passenger
+    ##
+
+    #passenger_root /usr;
+    #passenger_ruby /usr/bin/ruby;
+
+    ##
+    # Keep the file handlers on busy files open for longer on the static server
+    ##
+
+    {% if static is defined %}
+        open_file_cache          max=2000 inactive=20s;
+        open_file_cache_valid    60s;
+        open_file_cache_min_uses 5;
+        open_file_cache_errors   off;
+    {% endif %}
+
+    ##
+    # Cache proxy_pass responses
+    #
+
+    proxy_cache_path /tmp/nginxproxypasscache/ levels=1:2 keys_zone=cache_zone:120m;
+
+
+    ##
+    # Virtual Host Configs
+    ##
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}
+
+
+#mail {
+#	# See sample authentication script at:
+#	# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
+#
+#	# auth_http localhost/auth.php;
+#	# pop3_capabilities "TOP" "USER";
+#	# imap_capabilities "IMAP4rev1" "UIDPLUS";
+#
+#	server {
+#		listen     localhost:110;
+#		protocol   pop3;
+#		proxy      on;
+#	}
+#
+#	server {
+#		listen     localhost:143;
+#		protocol   imap;
+#		proxy      on;
+#	}
+#}

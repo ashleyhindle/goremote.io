@@ -1,0 +1,21 @@
+{
+  "name": "smelly-skeleton",
+  "version": "0.0.0",
+  "homepage": "https://github.com/theahindle/smelly-skeleton",
+  "authors": [
+    "Ashley Hindle <ashley@smellynose.com>"
+  ],
+  "moduleType": [
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "zurb/bower-foundation#~5.5.1"
+  }
+}

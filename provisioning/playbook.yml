@@ -1,0 +1,26 @@
+---
+- name: Output the current host
+  hosts: all
+  remote_user: root
+  roles:
+    - sethostname
+
+- name: All Hosts - Update Apt
+  hosts: all
+  remote_user: root
+  sudo: yes
+  roles:
+    - aptupdate
+
+- name: Vagrant - Install NGINX, Memcache, Beanstalk, GeoIP, MySQL and PHP-FPM
+  hosts: vagrant
+  remote_user: root
+  sudo: yes
+  roles:
+    - nginx
+    - php-fpm
+    - mysql
+    - gzip
+    - memcache
+    - beanstalk
+    - geoip

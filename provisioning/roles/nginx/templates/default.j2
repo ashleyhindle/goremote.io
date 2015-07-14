@@ -1,0 +1,45 @@
+server {
+    server_name {{ inventory_hostname }} 127.0.0.1;
+    listen 80;
+
+    root {{ dir_root }}/web/;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ ^/css/ {
+        sendfile off;
+        expires 0;
+        add_header Cache-Control no-cache;
+        break;
+    }
+
+    location ~ ^/js/ {
+        sendfile off;
+        expires 0;
+        add_header Cache-Control no-cache;
+        break;
+    }
+
+    location ~* \.php$ {
+        fastcgi_pass   unix:/var/run/php5-fpm.sock;
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME $document_root/index.php;
+        {% if vagrant is defined and vagrant == true %}
+		fastcgi_param APP_DEBUG true;
+        {% endif %}
+        fastcgi_param APP_MYSQL_USERNAME {{ mysql_username }};
+        fastcgi_param APP_MYSQL_HOSTNAME {{ mysql_hostname }};
+        fastcgi_param APP_MYSQL_PASSWORD {{ mysql_password }};
+        fastcgi_param APP_MYSQL_DATABASE {{ mysql_database }};
+    }
+
+    # Hide hidden files
+    location ~ /\. {
+        access_log off;
+        log_not_found off;
+        deny all;
+    }
+}

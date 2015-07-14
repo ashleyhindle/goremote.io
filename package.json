@@ -1,0 +1,26 @@
+{
+  "name": "smelly-skeleton",
+  "version": "1.0.0",
+  "description": "smelly-skeleton",
+  "main": "",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "bower": "^1.4.1",
+    "gulp": "^3.8.11",
+    "jasmine-node": "^1.14.5"
+  },
+  "scripts": {
+    "test": "node_modules/jasmine-node/bin/jasmine-node ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theahindle/smelly-skeleton.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theahindle/smelly-skeleton/issues"
+  },
+  "homepage": "https://github.com/theahindle/smelly-skeleton"
+}

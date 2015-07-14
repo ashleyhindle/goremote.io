@@ -1,0 +1,27 @@
+---
+- name: MySQL vars
+  debug: "Config = {{ mysql_config }}"
+- name: MySQL Server
+  apt: pkg=mysql-server state=present
+
+- name: Install python-mysql
+  apt: pkg=python-mysqldb state=present
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_password }} login_user=root login_password={{ mysql_root_password }} check_implicit_admin=yes priv=*.*:ALL,GRANT
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost 
+
+- name: Copy MySQL Config over
+  template: src={{ mysql_config | default('default.j2') }} dest=/etc/mysql/my.cnf
+  notify: restart mysql
+
+- name: Create database
+  mysql_db: name={{ mysql_database }} state=present login_user=root login_password={{ mysql_root_password }}
+  when: mysql_config is not defined or mysql_config != "slave.j2"
+
+- name: Create myproject user
+  mysql_user: name={{ mysql_username | default("myproject") }} password={{ mysql_password | default("myproject") }} priv={{ mysql_database }}.*:ALL state=present host="%" login_user=root login_password={{ mysql_root_password }}

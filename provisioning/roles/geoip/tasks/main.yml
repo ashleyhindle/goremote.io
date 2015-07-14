@@ -1,0 +1,3 @@
+---
+- name: Copy GeoIP2-Country.mmdb to /usr/local/share/GeoIP/
+  copy: src=../files/GeoIP2-Country.mmdb dest=/usr/local/share/GeoIP/ owner=www-data group=www-data
