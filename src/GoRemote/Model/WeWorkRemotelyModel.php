@@ -44,8 +44,9 @@ class WeWorkRemotelyModel
 				['<div>', '</div>', '</ul>', '<br />'],
 				['', "\n", "\n", "\n"],
 				(string) $job->description)));
-			$jobClass->sourceid = 99;
+			$jobClass->sourceid = 1;
 			$jobClass->companyid = 99;
+			$jobClass->companyname = current(explode(':', (string) $job->title));
 
 			$jobs[] = $jobClass;
 		}

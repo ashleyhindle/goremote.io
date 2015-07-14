@@ -52,10 +52,24 @@ class TestSourceCommand extends \Knp\Command\Command
 					(string) $job->applyurl
 				]);
 
-
 			if ($jobDuplicate) {
 				$jobDuplicateCount++;
 				continue;
+			}
+
+			$job->companyid = $this->app['db']->fetchColumn(
+				'select companyid from companies where dateadded=? and name=?',
+				[
+					(string) $job->dateadded,
+					(int) $job->companyname,
+				]);
+
+			if (empty($job->companyid)) {
+				$this->app['db']->insert('companies', [
+					'name' => $job->companyname,
+					'dateadded' => $job->dateadded,
+				]);
+				$job->companyid = $this->app['db']->lastInsertId();				
 			}
 
 			$this->app['db']->insert('jobs', [
@@ -63,8 +77,8 @@ class TestSourceCommand extends \Knp\Command\Command
 				'position' => $job->position,
 				'dateadded' => $job->dateadded,
 				'description' => $job->description,
-				'sourceid' => 99,
-				'companyid' => 99,
+				'sourceid' => $job->sourceid,
+				'companyid' => $job->companyid,
 				]);
 		}
 

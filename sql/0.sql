@@ -13,6 +13,7 @@ create table jobs (
 drop table if exists `companies`;
 create table companies (
 	companyid bigint unsigned not null auto_increment, primary key(companyid),
+	name varchar(255) not null default '',
 	url varchar(255) not null default '',
 	logo varchar(255) not null default '',
 	dateadded datetime not null default 0,
@@ -27,3 +28,6 @@ create table sources (
 	datedeleted datetime not null default 0,
 	enabled tinyint unsigned not null default 0
 );
+
+insert into sources (sourceid, url, dateadded, enabled) VALUES 
+	(1, 'https://weworkremotely.com', UTC_TIMESTAMP());

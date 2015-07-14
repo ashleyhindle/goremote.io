@@ -10,4 +10,5 @@ class JobModel
 	public $description;
 	public $sourceid;
 	public $companyid;
+	public $companyname;
 }
