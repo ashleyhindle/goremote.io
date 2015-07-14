@@ -1,5 +1,5 @@
 <?php
-namespace RemoteJobAggregator\Controller;
+namespace GoRemote\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;

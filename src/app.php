@@ -1,7 +1,7 @@
 <?php
 /* NameSpaces */
 // ToDo: Change this to your Application Wrapper
-use RemoteJobAggregator\Application;
+use GoRemote\Application;
 
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
@@ -35,7 +35,7 @@ $app->register(new MonologServiceProvider(), [
     'monolog.logfile' => $app['config.monolog.logfile'],
 ]);
 
-$app['monolog.name'] = 'smelly-skeleton';
+$app['monolog.name'] = 'goremote';
 $app['monolog'] = $app->share($app->extend('monolog', function($monolog) {
     $handlers = $monolog->getHandlers();
     foreach($handlers as $handler) {
@@ -53,9 +53,9 @@ $app->register(new SessionServiceProvider());
 $app->register(
     new ConsoleServiceProvider(),
     array(
-        'console.name' => 'RemoteJobAggregatorCli',
+        'console.name' => 'GoRemoteCli',
         'console.version' => '1.0.0',
-        'console.project_directory' => __DIR__ . "/RemoteJobAggregator/Cli"
+        'console.project_directory' => __DIR__ . "/GoRemote"
     )
 );
 
@@ -83,7 +83,6 @@ $app['session.storage.handler'] = $app->share(function ($app) {
 
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
-
 $app->register(new DoctrineServiceProvider());
 
 $app["db.options"] = [

@@ -1,0 +1,14 @@
+composer.phar
+vendor/
+.vagrant/
+.idea/
+node_modules/
+bower_components/
+web/css/foundation.css.map
+web/css/normalize.css.map
+web/css/foundation.css
+web/css/normalize.css
+web/js/foundation.min.js
+web/js/jquery.min.js
+web/js/jquery.min.map
+web/js/modernizr.js

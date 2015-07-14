@@ -1,5 +1,5 @@
 <?php
-namespace RemoteJobAggregator;
+namespace GoRemote;
 
 use Silex\Application as SilexApp;
 

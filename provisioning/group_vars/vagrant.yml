@@ -1,11 +1,11 @@
 ---
-mysql_username: myproject
-mysql_password: myproject
+mysql_username: goremote
+mysql_password: goremote123
 mysql_root_username: root
 mysql_root_password: myproject
 mysql_hostname: 127.0.0.1
-mysql_database: myproject
+mysql_database: goremote
 mysql_config: default.j2
 import_sql: true
-dir_root: /var/smelly-skeleton/
+dir_root: /var/goremote/
 vagrant: true

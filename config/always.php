@@ -18,7 +18,7 @@ return array (
             'minLogLevel' => 400,
             'minAdminNotifyLevel' => 500,
         ),
-    'config.monolog.logfile' => '/tmp/myproject_monolog.log',
+    'config.monolog.logfile' => '/tmp/goremote_monolog.log',
     'swiftmailer.options' => 
 	array (
 	    'host'       => 'smtp.mandrillapp.com',

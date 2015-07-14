@@ -6,5 +6,5 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
-$app->get('/', 'RemoteJobAggregator\Controller\HomepageController::indexAction')
+$app->get('/', 'GoRemote\Controller\HomepageController::indexAction')
     ->bind('homepage');
