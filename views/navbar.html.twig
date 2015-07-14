@@ -7,10 +7,38 @@
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
     </ul>
 
+    <div id="daily-digest-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2 id="modalTitle">Get a daily digest</h2>
+      <p class="lead">An email each day, with the latest remote friendly jobs</p>
+      <p>
+          <!-- Begin MailChimp Signup Form -->
+          <link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+          <style type="text/css">
+            #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+            /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+            We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+          </style>
+          <div id="mc_embed_signup">
+            <form action="//smellynose.us9.list-manage.com/subscribe/post?u=78fa3e40dbc975814ef2e7d8c&amp;id=cfd55756c6" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+              <div id="mc_embed_signup_scroll">
+                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;"><input type="text" name="b_78fa3e40dbc975814ef2e7d8c_cfd55756c6" tabindex="-1" value=""></div>
+                <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+              </div>
+            </form>
+          </div>
+          <!--End mc_embed_signup-->
+      </p>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
     <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="right">
-            <li class="active"><a href="#">Right Button Active</a></li>
+            <li class="active">
+                <a href="#" data-reveal-id="daily-digest-modal">Daily Digest</a>
+            </li>
             <li class="has-dropdown">
                 <a href="#">Right Button Dropdown</a>
                 <ul class="dropdown">
@@ -21,6 +49,7 @@
             <li>
                 <a class="twitter-follow-button" href="https://twitter.com/goremoteio" data-show-count=false data-size="large"> Follow @GoRemoteio
                 </a>
+            </li>
         </ul>
 
         <!-- Left Nav Section -->
