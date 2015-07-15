@@ -78,6 +78,10 @@ class TestSourceCommand extends \Knp\Command\Command
 				$job->companyid = $this->app['db']->lastInsertId();				
 			}
 
+			$job->description = html_entity_decode(trim(strip_tags(str_replace(
+				['<div>', '</div>', '</ul>', '<br />', "\n\n"],
+				['', "\n", "\n", "\n", "\n"], $job->description), '<b><strong><ul><li><br><br/><br />')));
+
 			$this->app['db']->insert('jobs', [
 				'applyurl' => $job->applyurl,
 				'position' => $job->position,

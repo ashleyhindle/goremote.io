@@ -40,16 +40,14 @@ class WfhModel
 			$jobClass->applyurl = (string) $job->link->attributes()->href;
 			$jobClass->position = (string) $job->title;
 			$jobClass->dateadded = (string) (new \DateTime($job->published))->format('Y-m-d H:i:s');
-			$jobClass->description = trim(str_replace(
-				['<div>', '</div>', '</ul>', '<br />', "\n\n"],
-				['', "\n", "\n", "\n", "\n"],
-				(string) $job->content));
+			$jobClass->description = (string) $job->content;
 			$jobClass->sourceid = 2;
 			$jobClass->companyid = 99;
 			
 			//TODO: Don't be so expensive
 			preg_match('/<small> @ (.+)<\/small>/', file_get_contents($jobClass->applyurl), $matches);
 			$jobClass->companyname = trim($matches[1]);
+			$jobClass->companylogo = '';
 
 			$jobs[] = $jobClass;
 		}
