@@ -4,7 +4,7 @@
     <h1>Latest Remote Jobs</h1>
     {% for job in latestJobs %}
     	<div class='job'>
-    		{{job.position}} @ {{job.companyname}}<br />
+    		<b>{{job.companyname}}</b> {{job.position}} - {{job.dateadded_unixtime|date('M d')}}<br />
     		<a href='{{ path('job-by-id-title', {id: job.jobid, title: job.position|url_encode}) }}'>Apply at {{job.sourcename}}</a>
     	</div>
     {% endfor %}

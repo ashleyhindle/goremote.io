@@ -12,3 +12,4 @@ web/js/foundation.min.js
 web/js/jquery.min.js
 web/js/jquery.min.map
 web/js/modernizr.js
+web/js/fastclick.js

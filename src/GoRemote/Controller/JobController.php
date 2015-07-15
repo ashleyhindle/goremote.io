@@ -9,7 +9,7 @@ class JobController
 {
     public function idAction(Request $request, Application $app)
     {
-    	$jobs = $app['db']->fetchAll('select jobs.*, companies.name as companyname, companies.url as companyurl, companies.logo as companylogo, sources.name as sourcename from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobid=?', 
+    	$jobs = $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.url as companyurl, companies.logo as companylogo, sources.name as sourcename from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobid=?', 
     		[
     			$request->get('id')
     		]);

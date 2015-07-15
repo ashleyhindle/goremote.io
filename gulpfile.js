@@ -10,7 +10,8 @@ gulp.task('copy-foundation', function() {
             'bower_components/foundation/js/foundation.min.js',
             'bower_components/jquery/dist/jquery.min.js',
             'bower_components/jquery/dist/jquery.min.map',
-            'bower_components/modernizr/modernizr.js'
+            'bower_components/modernizr/modernizr.js',
+            'bower_components/foundation/js/vendor/fastclick.js'
         ]
     ).pipe(gulp.dest('web/js/'));
 
