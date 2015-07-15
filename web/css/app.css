@@ -31,3 +31,19 @@ ul {
 .job .date {
 	color: #333333;
 }
+
+.footer {
+	border-top: 8px solid #DDD;
+	margin-top:20px;
+	padding:20px;
+	background-color: #CCC;
+	color: #FAFAFA;
+}
+
+.footer a {
+	color: #FAFAFA;
+}
+
+.footer a:hover {
+	color: #0A0A0A;
+}
