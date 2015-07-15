@@ -27,7 +27,7 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . '/../config/alway
 $app->register(new TwigServiceProvider(), [
     'twig.path'    => [__DIR__ . '/../views'],
     'twig.options' => [
-        'cache' => false
+        'cache' => (getenv('APP_DEBUG') == true) ? false : '/tmp/goremote-twig-cache/'
     ],
 ]);
 
@@ -61,10 +61,6 @@ $app['monolog'] = $app->share($app->extend('monolog', function($monolog) {
     }
     return $monolog;
 }));
-
-$app->before(function (Request $request) use ($app) {
-    $app['monolog']->addRecord(\Monolog\Logger::DEBUG, 'Opened page: ' . $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath());
-}, Application::EARLY_EVENT);
 
 $app->register(new SessionServiceProvider());
 
