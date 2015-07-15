@@ -120,8 +120,18 @@ if (getenv('APP_DEBUG') == true) {
         ]);
         $app->mount('/_profiler', $p);
     }
-
-    // Doing the config stuff seems to remove the config, so let's save and reset it.
 }
+
+$app->error(function (\Exception $e, $code) {
+    switch ($code) {
+        case 404:
+            $message = 'The requested page could not be found.';
+            break;
+        default:
+            $message = 'We are sorry, but something went terribly, horribly, amazingly wrong.';
+    }
+
+    return new Response($message);
+});
 
 return $app;
