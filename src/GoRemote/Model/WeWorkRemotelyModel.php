@@ -38,7 +38,7 @@ class WeWorkRemotelyModel
 			$jobClass = new JobModel();
 
 			$jobClass->applyurl = (string) $job->link;
-			$jobClass->position = (string) $job->title;
+			$jobClass->position = (string) trim(end(explode(':', (string) $job->title)));
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->format('Y-m-d H:i:s');
 			$jobClass->description = trim(strip_tags(str_replace(
 				['<div>', '</div>', '</ul>', '<br />'],
