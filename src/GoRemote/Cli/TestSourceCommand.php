@@ -80,7 +80,7 @@ class TestSourceCommand extends \Knp\Command\Command
 
 			$job->description = html_entity_decode(trim(strip_tags(str_replace(
 				['<div>', '</div>', '</ul>', '<br />', "\n\n"],
-				['', "\n", "\n", "\n", "\n"], $job->description), '<b><strong><ul><li><br><br/><br />')));
+				['', "\n", "\n", "\n", "\n"], $job->description), '<b><strong><ul><li><br><br/><br /></li></ul></b></strong>')));
 
 			$this->app['db']->insert('jobs', [
 				'applyurl' => $job->applyurl,
