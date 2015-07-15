@@ -13,13 +13,14 @@ class GitHubModel implements \GoRemote\Model\SourceInterface
 	{
 		$jobs = [];
 		$json = json_decode(file_get_contents(self::SOURCE_URL), true);
+		$tz = new \DateTimeZone('Europe/London');
 
 		foreach($json as $job) {
 			$jobClass = new JobModel();
 
 			$jobClass->applyurl = (string) $job['url'];
 			$jobClass->position = (string) $job['title'];
-			$jobClass->dateadded = (string) (new \DateTime($job['created_at']))->format('Y-m-d H:i:s');
+			$jobClass->dateadded = (string) (new \DateTime($job['created_at']))->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job['description'];
 			$jobClass->sourceid = self::SOURCE_ID;
 			

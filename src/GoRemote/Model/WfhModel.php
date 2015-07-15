@@ -35,12 +35,14 @@ class WfhModel implements \GoRemote\Model\SourceInterface
 	public function getJobs()
 	{
 		$jobs = [];
+		$tz = new \DateTimeZone('Europe/London');
+
 		foreach($this->getRss()->entry as $job) {
 			$jobClass = new JobModel();
 
 			$jobClass->applyurl = (string) $job->link->attributes()->href;
 			$jobClass->position = (string) $job->title;
-			$jobClass->dateadded = (string) (new \DateTime($job->published))->format('Y-m-d H:i:s');
+			$jobClass->dateadded = (string) (new \DateTime($job->published))->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->content;
 			$jobClass->sourceid = self::SOURCE_ID;
 			

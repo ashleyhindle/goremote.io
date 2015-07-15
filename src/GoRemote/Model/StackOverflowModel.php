@@ -35,12 +35,14 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 	public function getJobs()
 	{
 		$jobs = [];
+		$tz = new \DateTimeZone('Europe/London');
+
 		foreach($this->getRss()->channel->item as $job) {
 			$jobClass = new JobModel();
 
 			$jobClass->applyurl = (string) $job->link;
 			$jobClass->position = (string) current(explode(' at ', $job->title));
-			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->format('Y-m-d H:i:s');
+			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->description;
 			$jobClass->sourceid = self::SOURCE_ID;
 			
