@@ -6,5 +6,5 @@ require_once __DIR__ . '/vendor/autoload.php';
 $app = require_once __DIR__ . "/src/app.php";
 
 $console = &$app["console"];
-$console->add(new \GoRemote\Cli\TestSourceCommand());
+$console->add(new \GoRemote\Cli\CheckSourceCommand());
 $console->run();

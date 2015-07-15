@@ -5,19 +5,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
-class TestSourceCommand extends \Knp\Command\Command
+class CheckSourceCommand extends \Knp\Command\Command
 {
 	private $app;
 
 	protected function configure()
 	{
 		$this
-			->setName('test-source')
-			->setDescription('Test a source')
+			->setName('check-source')
+			->setDescription('Check a source')
 			->addArgument(
 				'source',
 				InputArgument::REQUIRED,
-				'Which source to test? - WeWorkRemotely, Wfh, GitHub, StackOverflow, AuthenticJobs'
+				'Which source to check? - WeWorkRemotely, Wfh, GitHub, StackOverflow, AuthenticJobs'
 				);
 	}
 
