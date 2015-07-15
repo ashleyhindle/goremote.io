@@ -3,7 +3,7 @@ namespace GoRemote\Model;
 
 use GoRemote\Model\JobModel;
 
-class StackOverflowModel
+class StackOverflowModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'http://careers.stackoverflow.com/jobs/feed?allowsremote=True';
 	const SOURCE_NAME = 'stackoverflow';

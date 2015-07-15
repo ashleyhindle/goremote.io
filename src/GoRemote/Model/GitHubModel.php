@@ -3,7 +3,7 @@ namespace GoRemote\Model;
 
 use GoRemote\Model\JobModel;
 
-class GitHubModel
+class GitHubModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'https://jobs.github.com/positions.json?location=remote';
 	const SOURCE_NAME = 'github';

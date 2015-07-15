@@ -3,7 +3,7 @@ namespace GoRemote\Model;
 
 use GoRemote\Model\JobModel;
 
-class WeWorkRemotelyModel
+class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'https://weworkremotely.com/jobs.rss';
 	const SOURCE_NAME = 'weworkremotely';

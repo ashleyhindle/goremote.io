@@ -3,7 +3,7 @@ namespace GoRemote\Model;
 
 use GoRemote\Model\JobModel;
 
-class WfhModel
+class WfhModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'https://www.wfh.io/jobs.atom';
 	const SOURCE_NAME = 'wfh';
