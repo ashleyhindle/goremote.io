@@ -37,8 +37,9 @@ class WeWorkRemotelyModel
 		foreach($this->getRss()[0]->channel->item as $job) {
 			$jobClass = new JobModel();
 
+			$explodedTitle = explode(':', (string) $job->title);
 			$jobClass->applyurl = (string) $job->link;
-			$jobClass->position = (string) trim(end(explode(':', (string) $job->title)));
+			$jobClass->position = (string) trim($explodedTitle[1]);
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->format('Y-m-d H:i:s');
 			$jobClass->description = trim(strip_tags(str_replace(
 				['<div>', '</div>', '</ul>', '<br />'],
@@ -46,7 +47,7 @@ class WeWorkRemotelyModel
 				(string) $job->description)));
 			$jobClass->sourceid = 1;
 			$jobClass->companyid = 99;
-			$jobClass->companyname = current(explode(':', (string) $job->title));
+			$jobClass->companyname = trim($explodedTitle[0]);
 
 			$jobs[] = $jobClass;
 		}
