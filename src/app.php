@@ -31,6 +31,24 @@ $app->register(new TwigServiceProvider(), [
     ],
 ]);
 
+
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    $twig->getExtension('core')->setTimezone('UTC');
+    
+    $function = new Twig_SimpleFunction('slugify', function($string) use($app) {
+        $string = preg_replace('/[^ a-zA-Z0-9\/\-]/', '', $string);
+        return str_replace(
+            [' ', '_', '/'],
+            ['-', '-', '-'],
+            strtolower($string)
+            );
+    });
+
+    $twig->addFunction($function);
+
+    return $twig;
+}));
+
 $app->register(new MonologServiceProvider(), [
     'monolog.logfile' => $app['config.monolog.logfile'],
 ]);
