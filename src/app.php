@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcachedSessionHan
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\WebProfilerServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Knp\Provider\ConsoleServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 
