@@ -17,7 +17,7 @@ class TestSourceCommand extends \Knp\Command\Command
 			->addArgument(
 				'source',
 				InputArgument::REQUIRED,
-				'Which source to test? - WeWorkRemotely, Wfh, GitHub, StackOverflow'
+				'Which source to test? - WeWorkRemotely, Wfh, GitHub, StackOverflow, AuthenticJobs'
 				);
 	}
 
