@@ -24,7 +24,7 @@ class GitHubModel
 			$jobClass->companyid = 99;
 			
 			$jobClass->companyname = $job['company'];
-			$jobClass->companylogo = $job['company_logo'];
+			$jobClass->companylogo = str_replace('http://', '//', $job['company_logo']);
 
 			$jobs[] = $jobClass;
 		}
