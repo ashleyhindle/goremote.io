@@ -9,6 +9,7 @@
 	    		<span class="company">{{job.companyname}}</span>
 	    		<span class="position">{{job.position}}</span>
 	    		<span class="right date show-for-medium-up">{{job.dateadded_unixtime|date('M d')}}</span>
+                <span class="right source show-for-medium-up">{{job.sourcename}}</span>
     		</a>
     	</li>
     {% endfor %}
