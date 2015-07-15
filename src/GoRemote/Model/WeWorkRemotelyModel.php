@@ -41,10 +41,10 @@ class WeWorkRemotelyModel
 			$jobClass->applyurl = (string) $job->link;
 			$jobClass->position = (string) trim($explodedTitle[1]);
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->format('Y-m-d H:i:s');
-			$jobClass->description = trim(strip_tags(str_replace(
-				['<div>', '</div>', '</ul>', '<br />'],
-				['', "\n", "\n", "\n"],
-				(string) $job->description)));
+			$jobClass->description = trim(str_replace(
+				['<div>', '</div>', '</ul>', '<br />', "\n\n"],
+				['', "\n", "\n", "\n", "\n"],
+				(string) $job->description));
 			$jobClass->sourceid = 1;
 			$jobClass->companyid = 99;
 			$jobClass->companyname = trim($explodedTitle[0]);

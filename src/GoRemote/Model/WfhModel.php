@@ -40,10 +40,10 @@ class WfhModel
 			$jobClass->applyurl = (string) $job->link->attributes()->href;
 			$jobClass->position = (string) $job->title;
 			$jobClass->dateadded = (string) (new \DateTime($job->published))->format('Y-m-d H:i:s');
-			$jobClass->description = trim(strip_tags(str_replace(
-				['<div>', '</div>', '</ul>', '<br />'],
-				['', "\n", "\n", "\n"],
-				(string) $job->content)));
+			$jobClass->description = trim(str_replace(
+				['<div>', '</div>', '</ul>', '<br />', "\n\n"],
+				['', "\n", "\n", "\n", "\n"],
+				(string) $job->content));
 			$jobClass->sourceid = 2;
 			$jobClass->companyid = 99;
 			

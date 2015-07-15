@@ -5,7 +5,7 @@
     {% for job in latestJobs %}
     	<div class='job'>
     		{{job.position}} @ {{job.companyname}}<br />
-    		<a href='{{job.applyurl}}'>Apply at {{job.sourcename}}</a>
+    		<a href='{{ path('job-by-id-title', {id: job.jobid, title: job.position|url_encode}) }}'>Apply at {{job.sourcename}}</a>
     	</div>
     {% endfor %}
 {% endblock %}

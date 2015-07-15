@@ -2,6 +2,8 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     <h1>{{job.position}} @ {{job.companyname}}!</h1>
-    <p>How do you do?</p>
+    <p>
+    {{job.description|raw|nl2br}}
+    </p>
     <a href='{{job.applyurl}}'>Apply at {{job.sourcename}}</a>
 {% endblock %}
