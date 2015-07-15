@@ -47,3 +47,7 @@ ul {
 .footer a:hover {
 	color: #0A0A0A;
 }
+
+.row {
+	padding:5px;
+}
