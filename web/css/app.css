@@ -3,6 +3,31 @@
   margin-right:5px !important;
 }
 
+ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
 .job {
-	margin: 10px;
+	margin: 3px;
+	border-bottom: 1px solid #bbbbbb;
+	padding: 10px;
+}
+
+.job:hover {
+	background-color: #FAFAFA;
+}
+
+.job a {
+	display: block;
+}
+
+.job .company {
+	color: #222222;
+	font-weight: bold;
+}
+
+.job .date {
+	color: #333333;
 }

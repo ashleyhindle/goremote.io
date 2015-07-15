@@ -2,10 +2,15 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     <h1>Latest Remote Jobs</h1>
+    <ul>
     {% for job in latestJobs %}
-    	<div class='job'>
-    		<b>{{job.companyname}}</b> {{job.position}} - {{job.dateadded_unixtime|date('M d')}}<br />
-    		<a href='{{ path('job-by-id-title', {id: job.jobid, title: job.position|url_encode}) }}'>Apply at {{job.sourcename}}</a>
-    	</div>
+    	<li class='job'>
+    		<a href='{{ path('job-by-id-title', {id: job.jobid, title: job.position|url_encode}) }}'>
+	    		<span class="company">{{job.companyname}}</span>
+	    		<span class="position">{{job.position}}</span>
+	    		<span class="right date">{{job.dateadded_unixtime|date('M d')}}</span>
+    		</a>
+    	</li>
     {% endfor %}
+    </ul>
 {% endblock %}
