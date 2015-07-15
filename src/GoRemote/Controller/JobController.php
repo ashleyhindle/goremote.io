@@ -9,7 +9,11 @@ class JobController
 {
     public function idAction(Request $request, Application $app)
     {
-        $render = $app['twig']->render('job.html.twig', [ 'jobid' => $request->get('id') ]);
+    	$jobs = $app['db']->fetchAll('select jobs.*, companies.name as companyname, companies.url as companyurl, sources.name as sourcename from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobid=?', 
+    		[
+    			$request->get('id')
+    		]);
+        $render = $app['twig']->render('job.html.twig', [ 'job' => $jobs[0] ]);
         return $render;
     }
 
