@@ -7,6 +7,7 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'http://careers.stackoverflow.com/jobs/feed?allowsremote=True';
 	const SOURCE_NAME = 'stackoverflow';
+	const SOURCE_ID = 4;
 
 	private $xml;
 
@@ -41,8 +42,7 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 			$jobClass->position = (string) current(explode(' at ', $job->title));
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->description;
-			$jobClass->sourceid = 4;
-			$jobClass->companyid = 99;
+			$jobClass->sourceid = self::SOURCE_ID;
 			
 			preg_match('/ at (.+)\(/U', (string) $job->title, $matches);
 			$jobClass->companyname = trim($matches[1]);

@@ -7,6 +7,7 @@ class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'https://weworkremotely.com/jobs.rss';
 	const SOURCE_NAME = 'weworkremotely';
+	const SOURCE_ID = 1;
 
 	private $xml;
 
@@ -42,8 +43,7 @@ class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 			$jobClass->position = (string) trim($explodedTitle[1]);
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->description;
-			$jobClass->sourceid = 1;
-			$jobClass->companyid = 99;
+			$jobClass->sourceid = self::SOURCE_ID;
 			$jobClass->companyname = trim($explodedTitle[0]);
 
 			$logoRegex = '/<img alt="Resized_logo" src="(.+)" \/>/';

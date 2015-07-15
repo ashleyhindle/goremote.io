@@ -7,6 +7,7 @@ class AuthenticJobsModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'https://authenticjobs.com/rss/custom.php?terms=&type=1,2,3,4,5,6,7&cats=&onlyremote=1&location=';
 	const SOURCE_NAME = 'authenticjobs';
+	const SOURCE_ID = 5;
 
 	private $xml;
 
@@ -42,8 +43,7 @@ class AuthenticJobsModel implements \GoRemote\Model\SourceInterface
 			$jobClass->position = (string) trim($explodedTitle[1]);
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->description;
-			$jobClass->sourceid = 5;
-			$jobClass->companyid = 99;
+			$jobClass->sourceid = self::SOURCE_ID;
 			
 			$jobClass->companyname = trim($explodedTitle[0]);
 			$jobClass->companylogo = '';

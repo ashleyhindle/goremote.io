@@ -7,6 +7,7 @@ class GitHubModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'https://jobs.github.com/positions.json?location=remote';
 	const SOURCE_NAME = 'github';
+	const SOURCE_ID = 3;
 
 	public function getJobs()
 	{
@@ -20,8 +21,7 @@ class GitHubModel implements \GoRemote\Model\SourceInterface
 			$jobClass->position = (string) $job['title'];
 			$jobClass->dateadded = (string) (new \DateTime($job['created_at']))->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job['description'];
-			$jobClass->sourceid = 3;
-			$jobClass->companyid = 99;
+			$jobClass->sourceid = self::SOURCE_ID;
 			
 			$jobClass->companyname = $job['company'];
 			$jobClass->companylogo = str_replace('http://', '//', $job['company_logo']);

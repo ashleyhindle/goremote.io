@@ -7,6 +7,7 @@ class WfhModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'https://www.wfh.io/jobs.atom';
 	const SOURCE_NAME = 'wfh';
+	const SOURCE_ID = 2;
 
 	private $xml;
 
@@ -41,8 +42,7 @@ class WfhModel implements \GoRemote\Model\SourceInterface
 			$jobClass->position = (string) $job->title;
 			$jobClass->dateadded = (string) (new \DateTime($job->published))->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->content;
-			$jobClass->sourceid = 2;
-			$jobClass->companyid = 99;
+			$jobClass->sourceid = self::SOURCE_ID;
 			
 			//TODO: Don't be so expensive
 			preg_match('/<small> @ (.+)<\/small>/', file_get_contents($jobClass->applyurl), $matches);
