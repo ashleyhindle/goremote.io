@@ -1,6 +1,6 @@
 <?php
 return array (
-    'config.debug' => true,
+    'config.debug' => false,
     'config.enableProfiler' => false,
     'config.monologConsts' =>
         array (
