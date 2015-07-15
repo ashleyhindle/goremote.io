@@ -2,6 +2,9 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     <h1>{{job.position}} @ {{job.companyname}}!</h1>
+    {% if job.companylogo is not empty %}
+    	<img style='float:right;' src='{{job.companylogo}}' />
+    {% endif %}
     <p>
     {{job.description|raw|nl2br}}
     </p>

@@ -49,6 +49,11 @@ class WeWorkRemotelyModel
 			$jobClass->companyid = 99;
 			$jobClass->companyname = trim($explodedTitle[0]);
 
+			$logoRegex = '/<img alt="Resized_logo" src="(.+)" \/>/';
+			preg_match($logoRegex, $jobClass->description, $matches);
+			$jobClass->description = preg_replace($logoRegex, '', $jobClass->description);
+			$jobClass->companylogo = (!empty($matches[1])) ? $matches[1] : '';
+
 			$jobs[] = $jobClass;
 		}
 

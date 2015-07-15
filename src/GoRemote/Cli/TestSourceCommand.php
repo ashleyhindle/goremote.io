@@ -72,6 +72,7 @@ class TestSourceCommand extends \Knp\Command\Command
 				$this->app['db']->insert('companies', [
 					'name' => $job->companyname,
 					'dateadded' => $job->dateadded,
+					'logo' => $job->companylogo
 				]);
 
 				$job->companyid = $this->app['db']->lastInsertId();				

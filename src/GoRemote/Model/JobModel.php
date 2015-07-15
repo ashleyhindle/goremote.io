@@ -9,6 +9,8 @@ class JobModel
 	public $dateadded;
 	public $description;
 	public $sourceid;
+	//TODO: Make ->company a class/model of Company instead of these silly variables
 	public $companyid;
 	public $companyname;
+	public $companylogo;
 }
