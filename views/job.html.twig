@@ -1,16 +1,22 @@
 {% extends "layout.html.twig" %}
-{% block title %}Home{% endblock %}
+{% block title %}{{job.position}} @ {{job.companyname}}{% endblock %}
 {% block content %}
 	{% if job.companylogo is not empty %}
     	<img class='right' src='{{job.companylogo}}' />
     {% endif %}
 
     <h1>{{job.position}}</h1>
+    
+    <a href='{{job.applyurl}}' class='show-for-medium-up button right'>Apply for this position</a>
+
     <h2>{{job.companyname}}</h2>
     <h3>Added {{job.dateadded_unixtime|date('M d')}}</h3>
+
+    <a href='{{job.applyurl}}' class='show-for-small-only button'>Apply for this position</a>
     <hr>
 
     {{job.description|raw|nl2br}}
 
-    <a href='{{job.applyurl}}' class='button'>Apply at {{job.sourcename}}</a>
+	<br>
+    <a href='{{job.applyurl}}' class='button'>Apply for this position</a>
 {% endblock %}
