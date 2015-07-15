@@ -47,7 +47,7 @@ class TestSourceCommand extends \Knp\Command\Command
  
 
 		foreach($source->getJobs() as $job) {
-			if ($jobDuplicateCount > 4) {
+			if ($jobDuplicateCount > 1) {
 				$output->writeln("Too many duplicate jobs, must be up to date (unless they're not in order) so stopping");
 				break;
 			}
