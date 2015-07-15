@@ -52,19 +52,6 @@ class CheckSourceCommand extends \Knp\Command\Command
 				break;
 			}
 
-			$jobDuplicate = $this->app['db']->fetchColumn(
-				'select jobid from jobs where dateadded=? and sourceid=? and applyurl=?',
-				[
-					(string) $job->dateadded,
-					(int) $job->sourceid,
-					(string) $job->applyurl
-				]);
-
-			if ($jobDuplicate) {
-				$jobDuplicateCount++;
-				continue;
-			}
-
 			$job->companyid = (array_key_exists($job->companyname, $companies)) 
 				? $companies[$job->companyname]['companyid'] : false;
 
@@ -76,6 +63,21 @@ class CheckSourceCommand extends \Knp\Command\Command
 				]);
 
 				$job->companyid = $this->app['db']->lastInsertId();				
+			}
+
+			$jobDuplicate = $this->app['db']->fetchColumn(
+				'select jobid from jobs where (dateadded=? and sourceid=? and applyurl=?) or (position=? and companyid=?)',
+				[
+					(string) $job->dateadded,
+					(int) $job->sourceid,
+					(string) $job->applyurl,
+					(string) $job->position,
+					(int) $job->companyid
+				]);
+
+			if ($jobDuplicate) {
+				$jobDuplicateCount++;
+				continue;
 			}
 
 			$job->description = html_entity_decode(trim(strip_tags(str_replace(
