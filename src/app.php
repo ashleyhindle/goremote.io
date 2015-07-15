@@ -47,6 +47,12 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
 
     $twig->addFunction($function);
 
+    $filter = new Twig_SimpleFilter('clickable', function($string) use($app) {
+        return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $string);
+    });
+
+    $twig->addFilter($filter);
+
     return $twig;
 }));
 
