@@ -32,4 +32,6 @@ create table sources (
 
 insert into sources (sourceid, url, name, dateadded, enabled) VALUES 
 	(1, 'https://weworkremotely.com', 'WeWorkRemotely', UTC_TIMESTAMP(), 1),
-	(2, 'https://wfh.io', 'WFH.io', UTC_TIMESTAMP(), 1);
+	(2, 'https://wfh.io', 'WFH.io', UTC_TIMESTAMP(), 1),
+	(3, 'https://jobs.github.com', 'GitHub Jobs', UTC_TIMESTAMP(), 1)
+	;
