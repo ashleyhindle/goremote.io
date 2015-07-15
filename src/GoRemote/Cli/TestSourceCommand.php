@@ -17,7 +17,7 @@ class TestSourceCommand extends \Knp\Command\Command
 			->addArgument(
 				'source',
 				InputArgument::REQUIRED,
-				'Which source to test? - first part of the model'
+				'Which source to test? - WeWorkRemotely, Wfh'
 				);
 	}
 
@@ -38,9 +38,17 @@ class TestSourceCommand extends \Knp\Command\Command
 		$className = "\\GoRemote\\Model\\{$source}Model";
 		$source = new $className;
 
+		$companies = [];
+		$companiesFromDb = $this->app['db']->fetchAll('select * from companies');
+		foreach ($companiesFromDb as $c) {
+			$companies[$c['name']] = $c;
+		}
+		unset($companiesFromDb);
+ 
+
 		foreach($source->getJobs() as $job) {
 			if ($jobDuplicateCount > 4) {
-				$output->writeln("Too many duplicate jobs, must be up to date so stopping");
+				$output->writeln("Too many duplicate jobs, must be up to date (unless they're not in order) so stopping");
 				break;
 			}
 
@@ -57,18 +65,15 @@ class TestSourceCommand extends \Knp\Command\Command
 				continue;
 			}
 
-			$job->companyid = $this->app['db']->fetchColumn(
-				'select companyid from companies where dateadded=? and name=?',
-				[
-					(string) $job->dateadded,
-					(int) $job->companyname,
-				]);
+			$job->companyid = (array_key_exists($job->companyname, $companies)) 
+				? $companies[$job->companyname]['companyid'] : false;
 
 			if (empty($job->companyid)) {
 				$this->app['db']->insert('companies', [
 					'name' => $job->companyname,
 					'dateadded' => $job->dateadded,
 				]);
+
 				$job->companyid = $this->app['db']->lastInsertId();				
 			}
 
@@ -76,10 +81,13 @@ class TestSourceCommand extends \Knp\Command\Command
 				'applyurl' => $job->applyurl,
 				'position' => $job->position,
 				'dateadded' => $job->dateadded,
-				'description' => $job->description,
+				'description' => html_entity_decode($job->description),
 				'sourceid' => $job->sourceid,
 				'companyid' => $job->companyid,
 				]);
+
+			$sourceName = $className::SOURCE_NAME;
+			$output->writeln("Inserted job for {$job->position} from {$job->companyname} from {$sourceName}");
 		}
 
 		return 0; // exit code of 0 is 'successful'

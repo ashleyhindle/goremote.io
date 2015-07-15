@@ -24,10 +24,12 @@ drop table if exists `sources`;
 create table sources (
 	sourceid bigint unsigned not null auto_increment, primary key(sourceid),
 	url varchar(255) not null default '',
+	name varchar(255) not null default '',
 	dateadded datetime not null default 0,
 	datedeleted datetime not null default 0,
 	enabled tinyint unsigned not null default 0
 );
 
-insert into sources (sourceid, url, dateadded, enabled) VALUES 
-	(1, 'https://weworkremotely.com', UTC_TIMESTAMP());
+insert into sources (sourceid, url, name, dateadded, enabled) VALUES 
+	(1, 'https://weworkremotely.com', 'WeWorkRemotely', UTC_TIMESTAMP(), 1),
+	(2, 'https://wfh.io', 'WFH.io', UTC_TIMESTAMP(), 1);
