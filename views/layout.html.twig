@@ -24,37 +24,38 @@
   -->
 
   {% block head %}
-      <title>{{ block('title') }}GoRemote.io - All of the remote friendly tech jobs in one place, frequently updated</title>
+  <title>{{ block('title') }}GoRemote.io - All of the remote friendly tech jobs in one place, frequently updated</title>
   {% endblock %}
+  
   {% block assets %}
-      <link rel="stylesheet" href="/css/normalize.css"/>
-      <link rel="stylesheet" href="/css/foundation.css"/>
-      <link rel="stylesheet" href="/css/app.css">
-      <script src="/js/fastclick.js"></script>
-      <script src="/js/modernizr.js"></script>
-      <script src="/js/jquery.min.js"></script>
-      <script src="/js/foundation.min.js"></script>
-      <script>
-          $(document).ready(function() {
-              $(document).foundation();
-              window.twttr = (function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
-              if (d.getElementById(id)) return t;
-              js = d.createElement(s);
-              js.id = id;
-              js.src = "https://platform.twitter.com/widgets.js";
-              fjs.parentNode.insertBefore(js, fjs);
-             
-              t._e = [];
-              t.ready = function(f) {
-                t._e.push(f);
-              };
-             
-              return t;
-            }(document, "script", "twitter-wjs"));
-          });
-      </script>
+  <link rel="stylesheet" href="/css/normalize.css"/>
+  <link rel="stylesheet" href="/css/foundation.css"/>
+  <link rel="stylesheet" href="/css/app.css">
+  <script src="/js/fastclick.js"></script>
+  <script src="/js/modernizr.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/foundation.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $(document).foundation();
+          window.twttr = (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+          if (d.getElementById(id)) return t;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "https://platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js, fjs);
+         
+          t._e = [];
+          t.ready = function(f) {
+            t._e.push(f);
+          };
+         
+          return t;
+        }(document, "script", "twitter-wjs"));
+      });
+  </script>
   {% endblock %}
 </head>
 <body>
