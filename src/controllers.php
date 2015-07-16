@@ -9,6 +9,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 $app->get('/', 'GoRemote\Controller\HomepageController::indexAction')
     ->bind('homepage');
 
+$app->get('/add', 'GoRemote\Controller\JobController::addAction')
+    ->bind('add');
+
 $app->get('/job/{id}/', 'GoRemote\Controller\JobController::idAction')
     ->bind('job-by-id');
 

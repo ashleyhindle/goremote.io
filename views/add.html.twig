@@ -1,0 +1,10 @@
+{% extends "layout.html.twig" %}
+{% block title %}Add a new job{% endblock %}
+{% block opengraphdescription %}Add a remote friendly tech job{% endblock %}
+{% block content %}
+    <h1>Add a remote friendly job</h1>
+    <p>As GoRemote.io is an aggregator of jobs, we ask that you add a new job at one of the sites below and it will appear here within shortly</p>
+    {% for source in sources %}
+    	<a href='{{source.url}}'>{{source.name}}</a><hr>
+    {% endfor %}
+{% endblock %}

@@ -17,4 +17,9 @@ class JobController
         return $render;
     }
 
+    public function addAction(Application $app)
+    {
+    	$sources = $app['db']->fetchAll('select * from sources');
+    	return $app['twig']->rendeR('add.html.twig', ['sources' => $sources]);
+    }
 }
