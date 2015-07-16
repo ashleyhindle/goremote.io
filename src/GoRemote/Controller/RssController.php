@@ -24,6 +24,8 @@ RSS;
 		// TODO Use twig for RSS as view is in the controller :(
 		foreach ($latestJobs as $job) {
 			$job['dateadded'] = date('r', strtotime($job['dateadded']));
+			$job['position'] = htmlentities($job['position']);
+			$job['companyname'] = htmlentities($job['companyname']);
 			$rss .= <<<RSS
 			<item>
 				<title>{$job['position']} @ {$job['companyname']}</title>
