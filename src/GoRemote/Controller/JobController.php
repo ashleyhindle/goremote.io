@@ -30,13 +30,11 @@ class JobController
         and jobs.datedeleted=0 
         and (
             companies.name like ? or 
-            sources.name like ? or 
             jobs.position like ? or 
             jobs.description like ?
             )
         order by jobs.dateadded desc limit 80",
         [
-            $searchQuery,
             $searchQuery,
             $searchQuery,
             $searchQuery
