@@ -127,18 +127,18 @@ if (getenv('APP_DEBUG') == true) {
         ]);
         $app->mount('/_profiler', $p);
     }
+} else {
+    $app->error(function (\Exception $e, $code) {
+        switch ($code) {
+            case 404:
+                $message = 'The requested page could not be found.';
+                break;
+            default:
+                $message = 'We are sorry, but something went terribly, horribly, amazingly wrong.';
+        }
+
+        return new Response($message);
+    });
 }
-
-$app->error(function (\Exception $e, $code) {
-    switch ($code) {
-        case 404:
-            $message = 'The requested page could not be found.';
-            break;
-        default:
-            $message = 'We are sorry, but something went terribly, horribly, amazingly wrong.';
-    }
-
-    return new Response($message);
-});
 
 return $app;

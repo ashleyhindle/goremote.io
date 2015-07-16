@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Language" content="en-us"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="description" content="GoRemote.io aggregates all of the remote friendly tech jobs in one place"/>
-  <meta property="og:title" content="GoRemote.io aggregates all of the remote friendly tech jobs in one place"/>
-  <meta property="og:url" content="https://goremote.io/"/>
-  <meta property="og:description" content="GoRemote.io aggregates all of the remote friendly tech jobs in one place"/>
+  <meta name="description" content="{{ block('title') }}GoRemote.io aggregates all of the remote friendly tech jobs in one place"/>
+  <meta property="og:title" content="{{ block('title') }}GoRemote.io aggregates all of the remote friendly tech jobs in one place"/>
+  <meta property="og:url" content="{{ app.request.getUri }}"/>
+  <meta property="og:description" content="{{ block('title') }}GoRemote.io aggregates all of the remote friendly tech jobs in one place"/>
   <meta property="og:image" content="http://"/>
   <meta property="og:type" content="website"/>
   <link rel="image_src" href="https://"/>
@@ -24,7 +24,7 @@
   -->
 
   {% block head %}
-      <title>{% block title %}{% endblock %}GoRemote.io - All of the remote friendly tech jobs in one place, frequently updated</title>
+      <title>{{ block('title') }}GoRemote.io - All of the remote friendly tech jobs in one place, frequently updated</title>
   {% endblock %}
   {% block assets %}
       <link rel="stylesheet" href="/css/normalize.css"/>
