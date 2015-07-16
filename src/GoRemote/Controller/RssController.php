@@ -26,7 +26,7 @@ RSS;
 			$rss .= <<<RSS
 			<item>
 				<title>{$job['position']}</title>
-				<description><![CDATA[<html><body>{$job['description']}</body></html>]]</description>
+				<description><![CDATA[<html><body>{$job['description']}</body></html>]]></description>
 				<pubDate>{$job['dateadded']}</description>
 				<guid>https://goremote.io/job/{$job['jobid']}</guid>
 				<link>https://goremote.io/job/{$job['jobid']}</link>
