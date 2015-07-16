@@ -13,7 +13,7 @@
 
     <h1>{{job.position}}</h1>
     <h2>{{job.companyname}}</h2>
-    <h3>Added {{job.dateadded_unixtime|date('M d')}}</h3>
+    <h3>Added {{job.dateadded_unixtime|date('M d')}} from <a href='{{job.sourceurl}}'>{{job.sourcename}}</a></h3>
 
     <a href='{{job.applyurl}}' class='show-for-small-only button'>Apply for this position</a>
     <hr>
