@@ -27,6 +27,7 @@ RSS;
 			$job['position'] = htmlentities($job['position']);
 			$job['companyname'] = htmlentities($job['companyname']);
 			$rss .= <<<RSS
+			
 			<item>
 				<title>{$job['position']} @ {$job['companyname']}</title>
 				<description>
