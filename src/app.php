@@ -134,7 +134,7 @@ if (getenv('APP_DEBUG') === true || getenv('APP_DEBUG') === 'true') {
                 $message = 'The requested page could not be found.';
                 break;
             default:
-                $message = 'We are sorry, but something went terribly, horribly, amazingly wrong.';
+                return new \Symfony\Component\HttpFoundation\RedirectResponse('https://goremote.io');
         }
 
         return new Response($message);
