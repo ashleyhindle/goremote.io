@@ -31,7 +31,7 @@ RSS;
 						{$job['description']}
 					]]>
 				</description>
-				<pubDate>{$job['dateadded']}</description>
+				<pubDate>{$job['dateadded']}</pubDate>
 				<guid>https://goremote.io/job/{$job['jobid']}</guid>
 				<link>https://goremote.io/job/{$job['jobid']}</link>
 				<companyName>{$job['companyname']}</companyName>
