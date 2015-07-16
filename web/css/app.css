@@ -48,6 +48,8 @@ ul {
 	padding:20px;
 	background-color: #CCC;
 	color: #FAFAFA;
+	width: 100%;
+	max-width: 100%;
 }
 
 .footer a {
