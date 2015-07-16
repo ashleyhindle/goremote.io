@@ -2,7 +2,7 @@
 {% block title %}{% endblock %}
 {% block opengraphdescription %}All remote friendly tech jobs aggregated in one place - we're open source, and have an API available{% endblock %}
 {% block content %}
-    <h1>Latest Remote Jobs <small>{{ lastWeekJobCount }} added in the last week</small></h1>
+    <h1>Latest Remote Jobs <br class='show-for-small-only'><small>{{ lastWeekJobCount }} added in the last week</small></h1>
     <ul>
     {% for job in latestJobs %}
     	<li class='job'>
