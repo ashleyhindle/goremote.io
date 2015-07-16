@@ -2,6 +2,7 @@
 {% block title %}{{job.position}} @ {{job.companyname}} - {% endblock %}
 {% block content %}
 	{% if job.companylogo is not empty %}
+        {% opengraphimage %}{{job.companylogo}}{% endblock %}
     	<img class='right' src='{{job.companylogo}}' />
     {% endif %}
 
