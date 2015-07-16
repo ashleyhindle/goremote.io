@@ -35,4 +35,4 @@ insert into sources (sourceid, url, name, dateadded, enabled) VALUES
 	(2, 'https://wfh.io', 'WFH.io', UTC_TIMESTAMP(), 1),
 	(3, 'https://jobs.github.com', 'GitHub Jobs', UTC_TIMESTAMP(), 1),
 	(4, 'https://careers.stackoverflow.com', 'StackOverflow Careers', UTC_TIMESTAMP(), 1),
-	(5, 'https://www.authenticjobs.com', 'Authentic Jobs', UTC_TIMESTAMP(), 1);
+	(5, 'http://www.authenticjobs.com', 'Authentic Jobs', UTC_TIMESTAMP(), 1);
