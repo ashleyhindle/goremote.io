@@ -3,6 +3,10 @@
   margin-right:5px !important;
 }
 
+.nopadding {
+	padding: 0px !important;
+}
+
 ul {
 	list-style: none;
 	margin: 0px;

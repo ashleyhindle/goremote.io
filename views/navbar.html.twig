@@ -44,7 +44,7 @@
           </li>
           <li class="has-form">
             <form method="GET" action="/search/" onsubmit="document.location.href='/search/' + document.getElementById('searchinput').value; return false">
-              <div class="row collapse">
+              <div class="row collapse nopadding">
                 <div class="large-8 small-9 columns">
                   <input id='searchinput' type="text" placeholder="Search..." value="{% if app.request.get('query') is not empty %}{{ app.request.get('query') }}{% endif %}">
                 </div>
