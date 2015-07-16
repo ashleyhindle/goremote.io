@@ -118,7 +118,7 @@ $app->register(new LewisB\PheanstalkServiceProvider\PheanstalkServiceProvider(),
     'pheanstalk.server' => '127.0.0.1'
 ));
 
-if (getenv('APP_DEBUG') == true) {
+if (getenv('APP_DEBUG') === true || getenv('APP_DEBUG') === 'true') {
     // enable the debug mode
     $app['debug'] = true;
     if ($app['config.enableProfiler'] == true) {
