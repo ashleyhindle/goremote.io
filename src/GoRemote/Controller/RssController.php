@@ -23,7 +23,7 @@ RSS;
 		// TODO Create a class to get latestjobs so we don't duplicate the query above
 		// TODO Use twig for RSS as view is in the controller :(
 		foreach ($latestJobs as $job) {
-			$job['description'] = htmlentities(str_replace('&nbsp;', ' ', $job['description']));
+			$job['description'] = str_replace('&nbsp;', ' ', htmlentities($job['description']));
 			$rss .= <<<RSS
 			<item>
 				<title>{$job['position']}</title>
