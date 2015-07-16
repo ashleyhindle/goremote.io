@@ -41,8 +41,9 @@ class AuthenticJobsModel implements \GoRemote\Model\SourceInterface
 			$jobClass = new JobModel();
 
 			$explodedTitle = explode(':', (string) $job->title);
+
 			$jobClass->applyurl = (string) $job->link;
-			$jobClass->position = (string) trim($explodedTitle[1]);
+			$jobClass->position = (string) (count($explodedTitle) > 1) ? trim($explodedTitle[1]) : trim($job->title);
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->description;
 			$jobClass->sourceid = self::SOURCE_ID;

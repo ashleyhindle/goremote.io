@@ -65,36 +65,13 @@ class CheckSourceCommand extends \Knp\Command\Command
 				$job->companyid = $this->app['db']->lastInsertId();				
 			}
 
-			$jobDuplicate = $this->app['db']->fetchColumn(
-				'select jobid from jobs where (dateadded=? and sourceid=? and applyurl=?) or (position=? and companyid=?)',
-				[
-					(string) $job->dateadded,
-					(int) $job->sourceid,
-					(string) $job->applyurl,
-					(string) $job->position,
-					(int) $job->companyid
-				]);
-
-			if ($jobDuplicate) {
+			$jobid = $job->insert($this->app['db']);
+			if ($jobid) {
+				$sourceName = $className::SOURCE_NAME;
+				$output->writeln("Inserted job ({$jobid}) for {$job->position} from {$job->companyname} from {$sourceName}");
+			} else {
 				$jobDuplicateCount++;
-				continue;
 			}
-
-			$job->description = html_entity_decode(trim(strip_tags(str_replace(
-				['<div>', '</div>', '<br />', "\n\n"],
-				['', "<br/>", "<br/>", "<br/>"], $job->description), '<b><strong><ul><li><br><br/><br />')));
-
-			$this->app['db']->insert('jobs', [
-				'applyurl' => $job->applyurl,
-				'position' => $job->position,
-				'dateadded' => $job->dateadded,
-				'description' => html_entity_decode($job->description),
-				'sourceid' => $job->sourceid,
-				'companyid' => $job->companyid,
-				]);
-
-			$sourceName = $className::SOURCE_NAME;
-			$output->writeln("Inserted job for {$job->position} from {$job->companyname} from {$sourceName}");
 		}
 
 		return 0; // exit code of 0 is 'successful'
