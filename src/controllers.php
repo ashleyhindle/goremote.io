@@ -12,6 +12,9 @@ $app->get('/', 'GoRemote\Controller\HomepageController::indexAction')
 $app->get('/add', 'GoRemote\Controller\JobController::addAction')
     ->bind('add');
 
+$app->get('/search/{query}', 'GoRemote\Controller\JobController::searchAction')
+    ->bind('search');
+
 $app->get('/job/{id}/', 'GoRemote\Controller\JobController::idAction')
     ->bind('job-by-id');
 
