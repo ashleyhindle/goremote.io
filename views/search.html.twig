@@ -1,0 +1,24 @@
+{% extends "layout.html.twig" %}
+{% block title %}{% endblock %}
+{% block opengraphdescription %}Search results for {{ app.request.get('query') }} - remote friendly tech jobs aggregated in one place at GoRemote.io{% endblock %}
+{% block content %}
+    <h1>Latest Remote Jobs <br class='show-for-small-only'><small>matching {{ app.request.get('query') }}, added in the last 2 months</small></h1>
+    {% if jobs is empty %}
+        <span class="alert round label">Zero results!</span><br>
+        <strong>We couldn't find any positions matching '{{ app.request.get('query') }}'</strong>
+    {% else %}
+        <span class="success round label">{{ jobs|length }} results</span><br>
+    {% endif %}
+    <ul>
+    {% for job in jobs %}
+    	<li class='job'>
+    		<a href='{{ path('job-by-id-title', {id: job.jobid, title: slugify(job.position)}) }}'>
+	    		<span class="company">{{job.companyname}}</span>
+	    		<span class="position">{{job.position}}</span>
+	    		<span class="right date show-for-medium-up">{{job.dateadded_unixtime|date('M d')}}</span>
+                <span class="right source show-for-medium-up">{{job.sourcename}}</span>
+    		</a>
+    	</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
