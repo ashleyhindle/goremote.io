@@ -23,9 +23,10 @@ RSS;
 		// TODO Create a class to get latestjobs so we don't duplicate the query above
 		// TODO Use twig for RSS as view is in the controller :(
 		foreach ($latestJobs as $job) {
+			$job['dateadded'] = date('r', strtotime($job['dateadded']));
 			$rss .= <<<RSS
 			<item>
-				<title>{$job['position']}</title>
+				<title>{$job['position']} @ {$job['companyname']}</title>
 				<description>
 					<![CDATA[
 						{$job['description']}
@@ -34,8 +35,6 @@ RSS;
 				<pubDate>{$job['dateadded']}</pubDate>
 				<guid>https://goremote.io/job/{$job['jobid']}</guid>
 				<link>https://goremote.io/job/{$job['jobid']}</link>
-				<companyName>{$job['companyname']}</companyName>
-				<sourceName>{$job['sourcename']}</sourceName>
 			</item>
 RSS;
 		}
