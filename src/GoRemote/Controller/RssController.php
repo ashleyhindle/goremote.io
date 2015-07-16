@@ -24,7 +24,7 @@ RSS;
 		// TODO Use twig for RSS as view is in the controller :(
 		foreach ($latestJobs as $job) {
 			$job['dateadded'] = date('r', strtotime($job['dateadded']));
-			$job['position'] = htmlentities($job['position']);
+			$job['position'] = str_replace('&ndash', '', htmlentities($job['position']));
 			$job['companyname'] = htmlentities($job['companyname']);
 			$image = (!empty($job['companylogo'])) ? "<img src='{$job['companylogo']}'>" : '';
 			$rss .= <<<RSS
