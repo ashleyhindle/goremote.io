@@ -1,5 +1,5 @@
 {% extends "layout.html.twig" %}
-{% block title %}{{job.position}} @ {{job.companyname}}{% endblock %}
+{% block title %}{{job.position}} @ {{job.companyname}} - {% endblock %}
 {% block content %}
 	{% if job.companylogo is not empty %}
     	<img class='right' src='{{job.companylogo}}' />
