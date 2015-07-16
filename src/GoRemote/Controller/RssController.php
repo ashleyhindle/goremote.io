@@ -19,8 +19,6 @@ class RssController
     <description>Recent jobs aggregated on GoRemote.io</description>
     <language>en-US</language>
     <ttl>180</ttl>
-  </channel>
-</rss>
 RSS;
 		// TODO Create a class to get latestjobs so we don't duplicate the query above
 		// TODO Use twig for RSS as view is in the controller :(
@@ -38,6 +36,10 @@ RSS;
 RSS;
 		}
 
+		$rss .= <<<RSS
+  </channel>
+</rss>
+RSS;
 
 		return new Response($rss, 200, array('Content-Type' => 'application/xml'));
     }
