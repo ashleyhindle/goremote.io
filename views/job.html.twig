@@ -4,7 +4,7 @@
     {% block opengraphimage %}{{job.companylogo}}{% endblock %}
 {% endif %}
 
-{% block opengraphdescription %}{{job.description|raw|trim|trim('<br/>')}}{% endblock %}
+{% block opengraphdescription %}{{job.description|trim|trim('<br/>')|raw}}{% endblock %}
 
 {% block content %}
 	{% if job.companylogo is not empty %}
