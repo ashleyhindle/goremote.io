@@ -14,7 +14,7 @@ class RssController
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>All Recent Jobs</title>
+    <title>All Remote Jobs In One Place</title>
     <link>https://goremote.io/rss</link>
     <description>Recent jobs aggregated on GoRemote.io</description>
     <language>en-US</language>
