@@ -12,6 +12,12 @@ $app->get('/', 'GoRemote\Controller\HomepageController::indexAction')
 $app->get('/add', 'GoRemote\Controller\JobController::addAction')
     ->bind('add');
 
+$app->get('/rss', 'GoRemote\Controller\RssController::mainAction')
+	->bind('rss');
+
+$app->get('/alljobs.rss', 'GoRemote\Controller\RssController::mainAction')
+	->bind('alljobs.rss');
+
 $app->get('/search/{query}', 'GoRemote\Controller\JobController::searchAction')
     ->bind('search')
     ->assert('query', '.+');
