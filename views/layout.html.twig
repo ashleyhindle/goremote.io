@@ -11,14 +11,14 @@
   <meta property="og:title" content="{{ block('title') }}GoRemote.io aggregates all of the remote friendly tech jobs in one place"/>
   <meta property="og:site_name" content="GoRemote.io"/>
   <meta property="og:url" content="{{ app.request.getUri }}"/>
-  <meta property="og:description" content="{{ block('title') }}GoRemote.io aggregates all of the remote friendly tech jobs in one place"/>
+  <meta property="og:description" content="{% block opengraphdescription %}{% endblock %}"/>
   <meta property="og:image" content="{% block opengraphimage %}http://{% endblock %}"/>
   <meta property="og:type" content="website"/>
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@goremoteio" />
 <meta name="twitter:title" content="{{ block('title') }}GoRemote.io aggregates all of the remote friendly tech jobs in one place" />
-<meta name="twitter:description" content="{{ block('title') }}GoRemote.io aggregates all of the remote friendly tech jobs in one place" />
+<meta name="twitter:description" content="{{ block('opengraphdescription') }}" />
 <meta name="twitter:image" content="{{ block('opengraphimage') }}" />
 
   <!--

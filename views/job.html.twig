@@ -4,6 +4,8 @@
     {% block opengraphimage %}{{job.companylogo}}{% endblock %}
 {% endif %}
 
+{% block opengraphdescription %}{{job.description|clickable|raw}}{% endblock %}
+
 {% block content %}
 	{% if job.companylogo is not empty %}
     	<img class='right' src='{{job.companylogo}}' />
