@@ -14,10 +14,14 @@ ul {
 }
 
 .job {
-	margin: 3px;
+	padding: 3px;
 	border-bottom: 1px solid #bbbbbb;
 	padding: 10px;
 }
+
+ .job:nth-of-type(2n) {
+ 	background-color: #f7f7f7;
+ }
 
 .job:hover {
 	background-color: #FAFAFA;
