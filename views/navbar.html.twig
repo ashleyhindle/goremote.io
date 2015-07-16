@@ -49,7 +49,7 @@
                   <input id='searchinput' type="text" placeholder="Search..." value="{% if app.request.get('query') is not empty %}{{ app.request.get('query') }}{% endif %}">
                 </div>
                 <div class="large-4 small-3 columns">
-                  <a href="#" class="alert button expand">Search</a>
+                  <input type='submit' href="#" class="alert button expand" value='Search'></input>
                 </div>
               </div>
             </form>
