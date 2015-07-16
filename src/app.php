@@ -28,7 +28,7 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . '/../config/alway
 $app->register(new TwigServiceProvider(), [
     'twig.path'    => [__DIR__ . '/../views'],
     'twig.options' => [
-        'cache' => (getenv('APP_DEBUG') == true) ? false : '/tmp/goremote-twig-cache/'
+        'cache' => (getenv('APP_DEBUG') == true) ? false : false//'/tmp/goremote-twig-cache/'
     ],
 ]);
 
