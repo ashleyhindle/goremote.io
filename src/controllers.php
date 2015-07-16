@@ -13,10 +13,12 @@ $app->get('/add', 'GoRemote\Controller\JobController::addAction')
     ->bind('add');
 
 $app->get('/search/{query}', 'GoRemote\Controller\JobController::searchAction')
-    ->bind('search');
+    ->bind('search')
+    ->assert('query', '.+');
 
 $app->get('/job/{id}/', 'GoRemote\Controller\JobController::idAction')
     ->bind('job-by-id');
 
 $app->get('/job/{id}/{title}', 'GoRemote\Controller\JobController::idAction')
-    ->bind('job-by-id-title');
+    ->bind('job-by-id-title')
+    ->assert('title', '.+');
