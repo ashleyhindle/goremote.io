@@ -36,5 +36,6 @@ insert into sources (sourceid, url, name, twitter, dateadded, enabled) VALUES
 	(1, 'https://weworkremotely.com', 'WeWorkRemotely', 'WeWorkRemotely', UTC_TIMESTAMP(), 1),
 	(2, 'https://wfh.io', 'WFH.io', 'wfhio', UTC_TIMESTAMP(), 1),
 	(3, 'https://jobs.github.com', 'GitHub Jobs', 'GitHubJobs', UTC_TIMESTAMP(), 1),
-	(4, 'https://careers.stackoverflow.com', 'StackOverflow Careers', 'StackCareers' UTC_TIMESTAMP(), 1),
-	(5, 'http://www.authenticjobs.com', 'Authentic Jobs', 'authenticjobs', UTC_TIMESTAMP(), 1);
+	(4, 'https://careers.stackoverflow.com', 'StackOverflow Careers', 'StackCareers', UTC_TIMESTAMP(), 1),
+	(5, 'http://www.authenticjobs.com', 'Authentic Jobs', 'authenticjobs', UTC_TIMESTAMP(), 1),
+	(6, 'https://goremote.io', 'GoRemote Hand Picked', 'goremote', UTC_TIMESTAMP(), 1);
