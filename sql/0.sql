@@ -16,6 +16,7 @@ create table companies (
 	name varchar(255) not null default '',
 	url varchar(255) not null default '',
 	logo varchar(255) not null default '',
+	twitter varchar(255) not null default '',
 	dateadded datetime not null default 0,
 	datedeleted datetime not null default 0
 );
@@ -25,14 +26,15 @@ create table sources (
 	sourceid bigint unsigned not null auto_increment, primary key(sourceid),
 	url varchar(255) not null default '',
 	name varchar(255) not null default '',
+	twitter varchar(255) not null default '',
 	dateadded datetime not null default 0,
 	datedeleted datetime not null default 0,
 	enabled tinyint unsigned not null default 0
 );
 
-insert into sources (sourceid, url, name, dateadded, enabled) VALUES 
-	(1, 'https://weworkremotely.com', 'WeWorkRemotely', UTC_TIMESTAMP(), 1),
-	(2, 'https://wfh.io', 'WFH.io', UTC_TIMESTAMP(), 1),
-	(3, 'https://jobs.github.com', 'GitHub Jobs', UTC_TIMESTAMP(), 1),
-	(4, 'https://careers.stackoverflow.com', 'StackOverflow Careers', UTC_TIMESTAMP(), 1),
-	(5, 'http://www.authenticjobs.com', 'Authentic Jobs', UTC_TIMESTAMP(), 1);
+insert into sources (sourceid, url, name, twitter, dateadded, enabled) VALUES 
+	(1, 'https://weworkremotely.com', 'WeWorkRemotely', 'WeWorkRemotely', UTC_TIMESTAMP(), 1),
+	(2, 'https://wfh.io', 'WFH.io', 'wfhio', UTC_TIMESTAMP(), 1),
+	(3, 'https://jobs.github.com', 'GitHub Jobs', 'GitHubJobs', UTC_TIMESTAMP(), 1),
+	(4, 'https://careers.stackoverflow.com', 'StackOverflow Careers', 'StackCareers' UTC_TIMESTAMP(), 1),
+	(5, 'http://www.authenticjobs.com', 'Authentic Jobs', 'authenticjobs', UTC_TIMESTAMP(), 1);
