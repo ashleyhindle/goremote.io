@@ -9,7 +9,7 @@ class HomepageController
 {
     public function indexAction(Request $request, Application $app)
     {
-    	$latestJobs = $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.url as companyurl, sources.name as sourcename, sources.url as sourceurl from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL 1 MONTH and jobs.datedeleted=0 order by jobs.dateadded desc limit 70');
+    	$latestJobs = (new \GoRemote\Model\JobModel())->getLatestJobs($app);
     	$lastWeekJobCount = $app['db']->fetchColumn('select count(1) from jobs where dateadded > UTC_TIMESTAMP() - INTERVAL 1 WEEK');
     	// TODO: These really need to be memcached
         $render = $app['twig']->render('index.html.twig', 

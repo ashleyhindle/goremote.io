@@ -14,6 +14,8 @@ class JobModel
 	public $companyname;
 	public $companylogo;
 
+	const DEFAULT_SEARCH_INTERVAL = 2592000; // 86400 * 30 - 1 month (ish)
+
 	public function insert(\Doctrine\DBAL\Connection $db)
 	{
 
@@ -36,14 +38,22 @@ class JobModel
 			['', "<br/>", "<br/>", "<br/>"], $this->description), '<b><strong><ul><li><br><br/><br />'))));
 
 		$db->insert('jobs', [
-			'applyurl' => $this->applyurl,
-			'position' => $this->position,
+			'applyurl' => trim($this->applyurl),
+			'position' => trim($this->position),
 			'dateadded' => $this->dateadded,
-			'description' => $this->description,
+			'description' => trim($this->description),
 			'sourceid' => $this->sourceid,
 			'companyid' => $this->companyid,
 			]);
 
 		return $db->lastInsertId();
+	}
+
+	public function getLatestJobs(\GoRemote\Application $app, $interval=self::DEFAULT_SEARCH_INTERVAL)
+	{
+		return $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.url as companyurl, sources.name as sourcename, sources.url as sourceurl from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL ? SECOND and jobs.datedeleted=0 order by jobs.dateadded desc limit 70',
+			[
+				$interval
+			]);
 	}
 }
