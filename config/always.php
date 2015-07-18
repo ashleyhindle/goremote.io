@@ -26,4 +26,11 @@ return array (
 	    'username'   => 'smelly@skeleton.com',
 	    'password'   => 'smelly-skeleton',
 	),
+    'config.dailydigest' => [
+        'from_email' => 'hey@goremote.io',
+        'from_name' => 'GoRemote.io',
+        'to_name' => '*|EMAIL|*',
+        'template_id' => 272225,
+        'authenticate' => true
+    ],
 );

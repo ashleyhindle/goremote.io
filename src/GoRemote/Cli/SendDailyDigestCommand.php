@@ -77,11 +77,11 @@ class SendDailyDigestCommand extends \Knp\Command\Command
 					'list_id' => $listId,
 					'title' => 'GoRemote.io Daily Digest ' . $date->format('Y-m-d'),
 					'subject' => 'GoRemote.io Daily Digest ' . $date->format('jS \of M'),
-					'from_email' => 'hey@goremote.io',
-					'from_name' => 'GoRemote.io',
-					'to_name' => '*|EMAIL|*',
-					'template_id' => 272225,
-					'authenticate' => true
+					'from_email' => $this->app['config.dailydigest']['from_email'],
+					'from_name' => $this->app['config.dailydigest']['from_name'],
+					'to_name' => $this->app['config.dailydigest']['to_name'],
+					'template_id' => $this->app['config.dailydigest']['template_id'],
+					'authenticate' => $this->app['config.dailydigest']['authenticate'],
 				],
 				'content' => [
 					'sections' => [
