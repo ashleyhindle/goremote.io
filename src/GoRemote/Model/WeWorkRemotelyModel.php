@@ -40,13 +40,12 @@ class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 		foreach($this->getRss()[0]->channel->item as $job) {
 			$jobClass = new JobModel();
 
-			$explodedTitle = explode(':', (string) $job->title);
+			list($jobClass->companyname, $jobClass->position) = explode(':', (string) $job->title);
+
 			$jobClass->applyurl = (string) $job->link;
-			$jobClass->position = (string) trim($explodedTitle[1]);
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->description;
 			$jobClass->sourceid = self::SOURCE_ID;
-			$jobClass->companyname = trim($explodedTitle[0]);
 
 			$logoRegex = '/<img alt="Resized_logo" src="(.+)" \/>/';
 			preg_match($logoRegex, $jobClass->description, $matches);
