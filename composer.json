@@ -20,7 +20,8 @@
         "knplabs/console-service-provider": "dev-master",
         "swiftmailer/swiftmailer": "5.3.0",
         "pda/pheanstalk": "dev-master",
-        "lewisbaker/silex-pheanstalk": "dev-master"
+        "lewisbaker/silex-pheanstalk": "dev-master",
+        "drewm/mailchimp-api": "~1.1"
     },
     "require-dev": {
         "phpmd/phpmd" : "@stable",
