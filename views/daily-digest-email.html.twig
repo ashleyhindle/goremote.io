@@ -1,0 +1,14 @@
+<span class="h1">Latest Remote Jobs</span>
+<div>
+	<ul style="list-style:none; padding:2px; margin:2px;">
+
+	{% for job in latestJobs %}
+    	<li class='job'>
+    		<a href='{{ path('job-by-id-title', {id: job.jobid, title: slugify(job.position)}) }}'>
+	    		<strong>{{job.companyname}}</strong> - 
+	    		<span class="position">{{job.position}}
+	    		<span class="right date show-for-medium-up">{{job.dateadded_unixtime|date('M d')}}</span>
+    		</a>
+    	</li>
+    {% endfor %}
+</div>
