@@ -17,7 +17,7 @@ class CheckSourceCommand extends \Knp\Command\Command
 			->addArgument(
 				'source',
 				InputArgument::REQUIRED,
-				'Which source to check? - WeWorkRemotely, Wfh, GitHub, StackOverflow, AuthenticJobs'
+				'Which source to check? - WeWorkRemotely, Wfh, GitHub, StackOverflow, AuthenticJobs, Jobspresso'
 				);
 	}
 
