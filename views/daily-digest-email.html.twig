@@ -4,7 +4,7 @@
 
 	{% for job in latestJobs %}
     	<li class='job'>
-    		<a href='{{ path('job-by-id-title', {id: job.jobid, title: slugify(job.position)}) }}'>
+    		<a href='https://goremote.io/job/{{job.jobid}}/{{ slugify(job.position)|url_encode }}'>
 	    		<strong>{{job.companyname}}</strong> - 
 	    		<span class="position">{{job.position}}
 	    		<span class="right date show-for-medium-up">{{job.dateadded_unixtime|date('M d')}}</span>
