@@ -6,7 +6,7 @@
     	<li class='job'>
     		<a href='https://goremote.io/job/{{job.jobid}}/{{ slugify(job.position)|url_encode }}'>
 	    		<strong>{{job.companyname}}</strong> - 
-	    		<span class="position">{{job.position}}
+	    		<span class="position">{{job.position}} &bull; 
 	    		<span class="right date show-for-medium-up">{{job.dateadded_unixtime|date('M d')}}</span>
     		</a>
     	</li>
