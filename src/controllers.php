@@ -15,6 +15,28 @@ $app->get('/add', 'GoRemote\Controller\JobController::addAction')
 $app->get('/rss', 'GoRemote\Controller\RssController::mainAction')
 	->bind('rss');
 
+$app->get('/api/companies', 'GoRemote\Controller\ApiController::companiesAction')
+	->bind('api-companies');
+
+$app->get('/api/company/{companyid}', 'GoRemote\Controller\ApiController::companyAction')
+	->bind('api-company-by-id');
+
+$app->get('/api/jobs', 'GoRemote\Controller\ApiController::jobsAction')
+	->bind('api-jobs');
+
+$app->get('/api/job/{id}', 'GoRemote\Controller\ApiController::jobAction')
+	->bind('api-job-by-id');
+
+$app->get('/api/sources', 'GoRemote\Controller\ApiController::sourcesAction')
+	->bind('api-sources');
+
+$app->get('/api/source/{id}', 'GoRemote\Controller\ApiController::sourceAction')
+	->bind('api-source-by-id');
+
+$app->get('/api/search/{query}', 'GoRemote\Controller\ApiController::searchAction')
+	->bind('api-search')
+	->assert('query', '.+');
+
 $app->get('/alljobs.rss', 'GoRemote\Controller\RssController::mainAction')
 	->bind('alljobs.rss');
 
