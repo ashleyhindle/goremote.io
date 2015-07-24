@@ -53,7 +53,7 @@ class JobModel
 	// TODO - separate into own model, with methods for getting random message type, method for replacements and such
 	public function tweet($app)
 	{
-		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} {link} - work from anywhere!";
+		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} {link} - work from anywhere! #remote";
 		$app['twitter']->setToken(
 			$app['config.twitter']['token'],
 			$app['config.twitter']['token_secret']
