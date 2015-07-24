@@ -69,7 +69,10 @@ class CheckSourceCommand extends \Knp\Command\Command
 				$companies[$company['name']] = $company; // Add to the cach array above
 			}
 
+			$job->position = preg_replace('/looking for an?/i', '', $job->position);
+
 			$jobid = $job->insert($this->app['db']);
+
 			if ($jobid) {
 				$sourceName = $className::SOURCE_NAME;
 				$output->writeln("Inserted job ({$jobid}) for {$job->position} from {$job->companyname} from {$sourceName}");
