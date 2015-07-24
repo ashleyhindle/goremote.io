@@ -21,11 +21,13 @@
         "swiftmailer/swiftmailer": "5.3.0",
         "pda/pheanstalk": "dev-master",
         "lewisbaker/silex-pheanstalk": "dev-master",
-        "drewm/mailchimp-api": "~1.1"
+        "drewm/mailchimp-api": "~1.1",
+        "jublonet/codebird-php": "dev-master"
     },
     "require-dev": {
         "phpmd/phpmd" : "@stable",
-        "squizlabs/php_codesniffer": "2.*"
+        "squizlabs/php_codesniffer": "2.*",
+        "phpunit/phpunit": "4.7.*"
     },
     "autoload": {
         "psr-0": { "": "src/" }
