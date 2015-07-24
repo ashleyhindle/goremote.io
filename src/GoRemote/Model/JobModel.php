@@ -53,7 +53,7 @@ class JobModel
 	// TODO - separate into own model, with methods for getting random message type, method for replacements and such
 	public function tweet($app)
 	{
-		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} @ {link}";
+		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} {link} - work from anywhere!";
 		$app['twitter']->setToken(
 			$app['config.twitter']['token'],
 			$app['config.twitter']['token_secret']
@@ -70,7 +70,7 @@ class JobModel
 					trim($this->companyname),
 					'a', //TODO: calculate indefinite article properly
 					trim($this->position),
-					$app['url_generator']->generate('job-by-id', array('id' => $this->jobid))
+					'https://goremote.io' . str_replace('https://goremote.io/', '', $app['url_generator']->generate('job-by-id', array('id' => $this->jobid)))
 				],
 				$tweetMessage
 			)
