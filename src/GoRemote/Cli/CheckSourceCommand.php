@@ -56,11 +56,14 @@ class CheckSourceCommand extends \Knp\Command\Command
 				? $companies[$job->companyname]['companyid'] : false;
 
 			if (empty($job->companyid)) {
-				$this->app['db']->insert('companies', [
+				$company = [
 					'name' => $job->companyname,
 					'dateadded' => $job->dateadded,
 					'logo' => $job->companylogo
-				]);
+				];
+
+				$this->app['db']->insert('companies', $company);
+				$companies[$company['name'] = $company;
 
 				$job->companyid = $this->app['db']->lastInsertId();				
 			}
