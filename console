@@ -9,4 +9,5 @@ require_once __DIR__ . "/src/controllers.php";
 $console = &$app["console"];
 $console->add(new \GoRemote\Cli\CheckSourceCommand());
 $console->add(new \GoRemote\Cli\SendDailyDigestCommand());
+$console->add(new \GoRemote\Cli\TweetCommand());
 $console->run();
