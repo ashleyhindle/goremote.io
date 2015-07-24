@@ -63,9 +63,10 @@ class CheckSourceCommand extends \Knp\Command\Command
 				];
 
 				$this->app['db']->insert('companies', $company);
-				$companies[$company['name'] = $company;
+				$job->companyid = $this->app['db']->lastInsertId();
 
-				$job->companyid = $this->app['db']->lastInsertId();				
+				$company['companyid'] = $job->companyid;
+				$companies[$company['name']] = $company; // Add to the cach array above
 			}
 
 			$jobid = $job->insert($this->app['db']);
