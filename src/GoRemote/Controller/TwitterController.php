@@ -26,8 +26,7 @@ class TwitterController
 			$app['session']->set['twitter_oauth_token_secret'] = $reply->oauth_token_secret;
 
 			// redirect to auth website
-			$auth_url = $cb->oauth_authorize();
-			return new Response($auth_url);
+			$auth_url = $app['twitter']->oauth_authorize();
 			return $app->redirect($auth_url);
 		} 
         return new Response('oops');
