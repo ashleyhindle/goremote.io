@@ -12,7 +12,10 @@ class GitHubModelTest extends WebTestCase
 	public function createApplication()
 	{
 	    // app.php must return an Application instance
-	    return require __DIR__ . '/../../../../src/app.php';
+	    $app = require __DIR__ . '/../../../../src/app.php';
+	    $app['debug'] = true;
+	    unset($app['exception_handler']);
+	    return $app;
 	}
 
 	public function testGetJobResponseValid() {
