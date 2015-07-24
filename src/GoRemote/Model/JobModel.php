@@ -46,7 +46,37 @@ class JobModel
 			'companyid' => $this->companyid,
 			]);
 
-		return $db->lastInsertId();
+		$this->jobid = $db->lastInsertId();
+		return $this->jobid;
+	}
+
+	// TODO - separate into own model, with methods for getting random message type, method for replacements and such
+	public function tweet()
+	{
+		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} @ {link}";
+		$this->app['twitter']->setToken(
+			$this->app['config.twitter']['token'],
+			$this->app['config.twitter']['token_secret']
+			);
+		$tweet = [
+			'status' => str_replace(
+				[
+					'{companyname}',
+					'{indefinitearticle}',
+					'{position}',
+					'{link}'
+				],
+				[
+					trim($this->companyname),
+					'a', //TODO: calculate indefinite article properly
+					trim($this->position),
+					$app['url_generator']->generate('job-by-id', array('id' => $this->jobid))
+				],
+				$tweetMessage
+			)
+		];
+
+		return $this->app['twitter']->statuses_update($tweet);
 	}
 
 	public function getLatestJobs(\GoRemote\Application $app, $interval=self::DEFAULT_SEARCH_INTERVAL)
