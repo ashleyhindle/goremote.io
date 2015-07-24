@@ -24,8 +24,8 @@ class JobModel
 			[
 				(string) $this->dateadded,
 				(int) $this->sourceid,
-				(string) $this->applyurl,
-				(string) $this->position,
+				(string) trim($this->applyurl),
+				(string) trim($this->position),
 				(int) $this->companyid
 			]);
 
