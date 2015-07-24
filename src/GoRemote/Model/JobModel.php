@@ -51,12 +51,12 @@ class JobModel
 	}
 
 	// TODO - separate into own model, with methods for getting random message type, method for replacements and such
-	public function tweet()
+	public function tweet($app)
 	{
 		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} @ {link}";
-		$this->app['twitter']->setToken(
-			$this->app['config.twitter']['token'],
-			$this->app['config.twitter']['token_secret']
+		$app['twitter']->setToken(
+			$app['config.twitter']['token'],
+			$app['config.twitter']['token_secret']
 			);
 		$tweet = [
 			'status' => str_replace(
@@ -76,7 +76,7 @@ class JobModel
 			)
 		];
 
-		return $this->app['twitter']->statuses_update($tweet);
+		return $app['twitter']->statuses_update($tweet);
 	}
 
 	public function getLatestJobs(\GoRemote\Application $app, $interval=self::DEFAULT_SEARCH_INTERVAL)

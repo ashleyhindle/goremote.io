@@ -73,6 +73,8 @@ class CheckSourceCommand extends \Knp\Command\Command
 			if ($jobid) {
 				$sourceName = $className::SOURCE_NAME;
 				$output->writeln("Inserted job ({$jobid}) for {$job->position} from {$job->companyname} from {$sourceName}");
+				$job->tweet($this->app);
+				exit;
 			} else {
 				$jobDuplicateCount++;
 			}
