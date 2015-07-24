@@ -36,6 +36,9 @@
       "post-create-project-cmd": [
         "npm install"
       ],
+      "test": [
+        "vendor/phpunit/phpunit/phpunit"
+      ],
       "post-install-cmd": [
         "node_modules/bower/bin/bower install",
         "node_modules/gulp/bin/gulp.js copy-foundation"
