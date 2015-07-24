@@ -81,9 +81,14 @@
 
   <div class="row footer">
     <div class="small-3 large-3 column">
-      <a href='https://github.com/ashleyhindle/goremote.io'>View on GitHub</a><br>
-      <a href='https://github.com/ashleyhindle/goremote.io#api'>API</a><br>
-      <a href='mailto:hey@goremote.io'>Get in touch</a>
+      <ul>
+        <li><a href='https://github.com/ashleyhindle/goremote.io'>GitHub</a></li>
+        <li><a href='https://github.com/ashleyhindle/goremote.io#api'>API</a></li>
+        <li><a href='mailto:hey@goremote.io'>Contact</a></li>
+        {% if app.debug == true %}
+        <li><a href='/twitter/auth'>Tweet Tweet</a></li>
+        {% endif %}
+      </ul>
     </div>
     <div class="small-9 large-9 column">
       <ul class="inline-list">

@@ -9,6 +9,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 $app->get('/', 'GoRemote\Controller\HomepageController::indexAction')
     ->bind('homepage');
 
+$app->get('/twitter/auth', 'GoRemote\Controller\TwitterController::authAction')
+	->bind('twitter-auth');
+
 $app->get('/add', 'GoRemote\Controller\JobController::addAction')
     ->bind('add');
 

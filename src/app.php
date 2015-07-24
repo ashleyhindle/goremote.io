@@ -24,6 +24,7 @@ use Silex\Provider\TwigServiceProvider;
 
 $app = new Application();
 $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . '/../config/always.php'));
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . '/../config/secrets.php'));
 
 $app->register(new TwigServiceProvider(), [
     'twig.path'    => [__DIR__ . '/../views'],
@@ -100,6 +101,11 @@ $app->register(
 
 $app['session.storage.handler'] = $app->share(function ($app) {
     return new MemcachedSessionHandler($app['memcache']);
+});
+
+$app['twitter'] = $app->share(function ($app) {
+    \Codebird\Codebird::setConsumerKey($app['config.twitter']['key'], $app['config.twitter']['key']);
+    return \Codebird\Codebird::getInstance();
 });
 
 $app->register(new UrlGeneratorServiceProvider());
