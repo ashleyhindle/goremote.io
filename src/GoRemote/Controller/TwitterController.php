@@ -22,8 +22,8 @@ class TwitterController
 			// store the token
 			$app['twitter']->setToken($reply->oauth_token, $reply->oauth_token_secret);
 
-			$app['session']->set['twitter_oauth_token'] = $reply->oauth_token;
-			$app['session']->set['twitter_oauth_token_secret'] = $reply->oauth_token_secret;
+			$app['session']->set('twitter_oauth_token', $reply->oauth_token);
+			$app['session']->set('twitter_oauth_token_secret', $reply->oauth_token_secret);
 
 			// redirect to auth website
 			$auth_url = $app['twitter']->oauth_authorize();
