@@ -15,9 +15,13 @@ class TwitterController
 				'oauth_callback' => $request->getUri()
 			]);
 
+			if (empty($reply)) {
+				return new Response('Reply is empty');
+			}
+
 			// store the token
 			$app['twitter']->setToken($reply->oauth_token, $reply->oauth_token_secret);
-			
+
 			$app['session']->set['twitter_oauth_token'] = $reply->oauth_token;
 			$app['session']->set['twitter_oauth_token_secret'] = $reply->oauth_token_secret;
 
