@@ -104,7 +104,7 @@ $app['session.storage.handler'] = $app->share(function ($app) {
 });
 
 $app['twitter'] = $app->share(function ($app) {
-    \Codebird\Codebird::setConsumerKey($app['config.twitter']['key'], $app['config.twitter']['key']);
+    \Codebird\Codebird::setConsumerKey($app['config.twitter']['key'], $app['config.twitter']['secret']);
     return \Codebird\Codebird::getInstance();
 });
 
