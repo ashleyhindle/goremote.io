@@ -18,19 +18,19 @@ $app->get('/add', 'GoRemote\Controller\JobController::addAction')
 $app->get('/rss', 'GoRemote\Controller\RssController::mainAction')
 	->bind('rss');
 
-$app->get('/api/companies', 'GoRemote\Controller\ApiController::companiesAction')
+$app->get('/api/companies/', 'GoRemote\Controller\ApiController::companiesAction')
 	->bind('api-companies');
 
 $app->get('/api/company/{companyid}', 'GoRemote\Controller\ApiController::companyAction')
 	->bind('api-company-by-id');
 
-$app->get('/api/jobs', 'GoRemote\Controller\ApiController::jobsAction')
+$app->get('/api/jobs/', 'GoRemote\Controller\ApiController::jobsAction')
 	->bind('api-jobs');
 
 $app->get('/api/job/{id}', 'GoRemote\Controller\ApiController::jobAction')
 	->bind('api-job-by-id');
 
-$app->get('/api/sources', 'GoRemote\Controller\ApiController::sourcesAction')
+$app->get('/api/sources/', 'GoRemote\Controller\ApiController::sourcesAction')
 	->bind('api-sources');
 
 $app->get('/api/source/{id}', 'GoRemote\Controller\ApiController::sourceAction')
