@@ -22,8 +22,16 @@ class UpdateCompanyTwittersCommand extends \Knp\Command\Command
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$db = $this->getSilexApplication()['db'];
-		$jobs = $db->fetchAll('select companyid, applyurl from jobs group by companyid limit 1');
-		print_r($jobs);
+		$jobs = $db->fetchAll('select companyid, applyurl from jobs inner join companies using(companyid) where twitter="" group by companyid');
+
+		foreach ($jobs as $job) {
+			/* 
+			Figure out twitter with a twitter model or something, then change the code in StackOverflow 
+			to use the same code so we're not repeating ourselves
+
+			Get the apply url, figure out the company url from that, the 
+			*/
+		}
 
 		return 0; // exit code of 0 is 'successful'
 	}
