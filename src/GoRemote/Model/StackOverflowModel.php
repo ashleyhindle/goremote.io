@@ -32,6 +32,7 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 		return $this->setXml(file_get_contents(self::SOURCE_URL));
 	}
 
+	// TODO Use DomDocument/DomXPath
 	public function parseDescription($link) {
 		$fc = file_get_contents($link);
 		$count = preg_match_all('/<div class="description" ?>(.+)<\/div>/mUs', $fc, $matches);
@@ -40,6 +41,35 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 		}
 
 		return implode("\n", $matches[1]);
+	}
+
+
+	// TODO don't duplicate this, and don't be disgusting
+	public function parseTwitter($link) {
+		$companyUrl = '';
+		$doc = new \DOMDocument();
+		libxml_use_internal_errors(true);
+		$doc->loadHTML(file_get_contents($link));
+
+		foreach($doc->getElementsByTagName('a') as $link) { 
+			if ($link->getAttribute('class') == 'employer') {
+				$companyUrl = $link->getAttribute('href');
+				break;
+			}
+		}
+
+		if (empty($companyUrl)) {
+			return '';
+		}
+
+		$fc = file_get_contents($companyUrl);
+		$resultCount = preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(\w+)"?\'?/u', $fc, $matches);
+
+		if (empty($resultCount)) {
+			return '';
+		}
+
+		return $matches[1];
 	}
 
 	public function getJobs()
@@ -61,6 +91,7 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 			preg_match('/ at (.+)\(/U', (string) $job->title, $matches);
 			$jobClass->companyname = trim($matches[1]);
 			$jobClass->companylogo = '';
+			$jobClass->companytwitter = $this->parseTwitter((string)$job->link);
 
 			$jobs[] = $jobClass;
 		}

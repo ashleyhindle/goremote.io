@@ -12,6 +12,7 @@ class JobModel
 	//TODO: Make ->company a class/model of Company instead of these silly variables
 	public $companyid;
 	public $companyname;
+	public $companytwitter;
 	public $companylogo;
 
 	const DEFAULT_SEARCH_INTERVAL = 2592000; // 86400 * 30 - 1 month (ish)
@@ -58,6 +59,7 @@ class JobModel
 			$app['config.twitter']['token'],
 			$app['config.twitter']['token_secret']
 			);
+		$companyname = (!empty($this->companytwitter)) ? '@' . $this->companytwitter : trim($this->companyname);
 		$tweet = [
 			'status' => str_replace(
 				[
@@ -67,7 +69,7 @@ class JobModel
 					'{link}'
 				],
 				[
-					trim($this->companyname),
+					$companyname,
 					'a', //TODO: calculate indefinite article properly
 					trim($this->position),
 					'https://goremote.io' . str_replace('https://goremote.io/', '', $app['url_generator']->generate('job-by-id', array('id' => $this->jobid)))
@@ -81,7 +83,7 @@ class JobModel
 
 	public function getLatestJobs(\GoRemote\Application $app, $interval=self::DEFAULT_SEARCH_INTERVAL)
 	{
-		return $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.url as companyurl, sources.name as sourcename, sources.url as sourceurl from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL ? SECOND and jobs.datedeleted=0 order by jobs.dateadded desc limit 70',
+		return $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.twitter as companytwitter, companies.url as companyurl, sources.name as sourcename, sources.url as sourceurl from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL ? SECOND and jobs.datedeleted=0 order by jobs.dateadded desc limit 70',
 			[
 				$interval
 			]);

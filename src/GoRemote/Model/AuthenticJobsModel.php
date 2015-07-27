@@ -42,13 +42,23 @@ class AuthenticJobsModel implements \GoRemote\Model\SourceInterface
 
 			$explodedTitle = explode(':', (string) $job->title);
 
-			$jobClass->applyurl = (string) $job->link;
+			$jobClass->applyurl = (string) $job->guid;
 			$jobClass->position = (string) (count($explodedTitle) > 1) ? trim($explodedTitle[1]) : trim($job->title);
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->description;
 			$jobClass->sourceid = self::SOURCE_ID;
 			
 			$jobClass->companyname = trim($explodedTitle[0]);
+
+			$doc = new \DOMDocument();
+			
+			libxml_use_internal_errors(true);
+			$doc->loadHTML(file_get_contents($jobClass->applyurl));
+			libxml_clear_errors();
+
+			$xpath = new \DOMXpath($doc);
+			$elements = $xpath->query("//li[@class='twitter']");
+			$jobClass->companytwitter = ($elements->length > 0) ? str_replace('@', '', trim($elements->item(0)->textContent)) : '';
 			$jobClass->companylogo = '';
 
 			$jobs[] = $jobClass;

@@ -47,8 +47,11 @@ class WfhModel implements \GoRemote\Model\SourceInterface
 			$jobClass->sourceid = self::SOURCE_ID;
 			
 			//TODO: Don't be so expensive
-			preg_match('/<small> @ (.+)<\/small>/', file_get_contents($jobClass->applyurl), $matches);
+			$fc = file_get_contents($jobClass->applyurl);
+			preg_match('/<small> @ (.+)<\/small>/', $fc, $matches);
 			$jobClass->companyname = trim($matches[1]);
+			$r = preg_match('/href="https?:\/\/(www)?.twitter.com\/(.+)"/', $fc, $matches);
+			$jobClass->companytwitter = (!empty($r)) ? trim($matches[2]) : '';
 			$jobClass->companylogo = '';
 
 			$jobs[] = $jobClass;
