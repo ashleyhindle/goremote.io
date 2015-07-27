@@ -50,11 +50,11 @@ class JobspressoModel implements \GoRemote\Model\SourceInterface
 			preg_match('/<img class="company_logo" src="(.+)" alt="(.+)" \/>/',
 				$fc, $matches);
 
-			$jobClass->companylogo = (!empty($matches[1])) ? $matches[1] : '';
+			$jobClass->companylogo = (!empty($matches[1])) ? $matches[1] : '';			
+			$jobClass->companyname = (!empty($matches[2])) ? $matches[2] : $job->children('job_listing', true)->company;
 
 			preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(?!jobspresso)(\w+)"?\'?/u', $fc, $matches);
 			$jobClass->companytwitter = (!empty($matches[1])) ? $matches[1] : '';
-			$jobClass->companyname = (!empty($matches[2])) ? $matches[2] : $job->children('job_listing', true)->company;
 
 			$jobs[] = $jobClass;
 		}
