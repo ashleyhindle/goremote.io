@@ -46,11 +46,14 @@ class JobspressoModel implements \GoRemote\Model\SourceInterface
 			$jobClass->description = (string)$job->children('content', true)->encoded;
 			$jobClass->sourceid = self::SOURCE_ID;
 
+			$fc = file_get_contents($jobClass->applyurl);
 			preg_match('/<img class="company_logo" src="(.+)" alt="(.+)" \/>/',
-				file_get_contents($jobClass->applyurl), $matches);
+				$fc, $matches);
 
 			$jobClass->companylogo = (!empty($matches[1])) ? $matches[1] : '';
-			$jobClass->companytwitter = '';
+
+			preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(?!jobspresso)(\w+)"?\'?/u', $fc, $matches);
+			$jobClass->companytwitter = (!empty($matches[1])) ? $matches[1] : '';
 			$jobClass->companyname = (!empty($matches[2])) ? $matches[2] : $job->children('job_listing', true)->company;
 
 			$jobs[] = $jobClass;
