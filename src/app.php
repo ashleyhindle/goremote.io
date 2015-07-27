@@ -26,6 +26,10 @@ $app = new Application();
 $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . '/../config/always.php'));
 $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . '/../config/secrets.php'));
 
+if (getenv('APP_DEBUG') === true || getenv('APP_DEBUG') === 'true' || file_exists('/tmp/goremote.io_debug')) {
+    $app['debug'] = true;
+}
+
 $app->register(new TwigServiceProvider(), [
     'twig.path'    => [__DIR__ . '/../views'],
     'twig.options' => [
@@ -126,8 +130,6 @@ $app->register(new LewisB\PheanstalkServiceProvider\PheanstalkServiceProvider(),
 ));
 
 if (getenv('APP_DEBUG') === true || getenv('APP_DEBUG') === 'true') {
-    // enable the debug mode
-    $app['debug'] = true;
     if ($app['config.enableProfiler'] == true) {
         $app->register($p = new WebProfilerServiceProvider(), [
             'profiler.cache_dir' => '/tmp/cache/profiler/',

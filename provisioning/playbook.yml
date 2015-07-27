@@ -24,3 +24,4 @@
     - memcache
     - beanstalk
     - geoip
+    - debug-file
