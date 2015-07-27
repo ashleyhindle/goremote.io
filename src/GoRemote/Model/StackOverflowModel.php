@@ -63,8 +63,6 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 			$jobClass->companylogo = '';
 
 			$jobs[] = $jobClass;
-			print_r($jobs);
-			exit;
 		}
 
 		return $jobs;
