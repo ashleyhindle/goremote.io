@@ -45,7 +45,6 @@ class CheckSourceCommand extends \Knp\Command\Command
 		}
 		unset($companiesFromDb);
  
-
 		foreach($source->getJobs() as $job) {
 			if ($jobDuplicateCount > 1) {
 				$output->writeln("Too many duplicate jobs, must be up to date (unless they're not in order) so stopping");
@@ -82,7 +81,6 @@ class CheckSourceCommand extends \Knp\Command\Command
 				if (!$this->app['debug']) {
 					$job->tweet($this->app);
 				}
-				exit;
 			} else {
 				$jobDuplicateCount++;
 			}
