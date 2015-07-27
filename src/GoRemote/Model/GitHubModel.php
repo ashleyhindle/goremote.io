@@ -25,6 +25,7 @@ class GitHubModel implements \GoRemote\Model\SourceInterface
 			$jobClass->sourceid = self::SOURCE_ID;
 			
 			$jobClass->companyname = $job['company'];
+			$jobClass->companytwitter = '';
 			$jobClass->companylogo = str_replace('http://', '//', $job['company_logo']);
 
 			$jobs[] = $jobClass;

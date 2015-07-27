@@ -51,6 +51,7 @@ class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 			preg_match($logoRegex, $jobClass->description, $matches);
 			$jobClass->description = preg_replace($logoRegex, '', $jobClass->description);
 			$jobClass->companylogo = (!empty($matches[1])) ? $matches[1] : '';
+			$jobClass->companytwitter = '';
 
 			$jobs[] = $jobClass;
 		}

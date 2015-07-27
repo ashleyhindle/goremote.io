@@ -50,6 +50,7 @@ class JobspressoModel implements \GoRemote\Model\SourceInterface
 				file_get_contents($jobClass->applyurl), $matches);
 
 			$jobClass->companylogo = (!empty($matches[1])) ? $matches[1] : '';
+			$jobClass->companytwitter = '';
 			$jobClass->companyname = (!empty($matches[2])) ? $matches[2] : $job->children('job_listing', true)->company;
 
 			$jobs[] = $jobClass;
