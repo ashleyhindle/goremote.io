@@ -22,7 +22,7 @@ class UpdateCompanyTwittersCommand extends \Knp\Command\Command
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$db = $this->getSilexApplication()['db'];
-		$jobs = $db->fetchAll('select companyid, applyurl from jobs inner join companies using(companyid) where twitter="" group by companyid');
+		$jobs = $db->fetchAll('select companyid, applyurl from jobs inner join companies using(companyid) where (twitter is null or twitter="") group by companyid');
 
 		foreach ($jobs as $job) {
 			/* 
