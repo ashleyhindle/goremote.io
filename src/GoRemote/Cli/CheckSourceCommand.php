@@ -59,7 +59,8 @@ class CheckSourceCommand extends \Knp\Command\Command
 					'name' => $job->companyname,
 					'dateadded' => $job->dateadded,
 					'logo' => $job->companylogo,
-					'twitter' => $job->companytwitter
+					'twitter' => $job->companytwitter,
+					'url' => $job->companyurl
 				];
 
 				$this->app['db']->insert('companies', $company);

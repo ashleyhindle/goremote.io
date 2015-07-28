@@ -12,6 +12,7 @@ class JobModel
 	//TODO: Make ->company a class/model of Company instead of these silly variables
 	public $companyid;
 	public $companyname;
+	public $companyurl = '';
 	public $companytwitter;
 	public $companylogo;
 
