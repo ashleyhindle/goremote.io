@@ -40,7 +40,11 @@ class GolangProjectsModel implements \GoRemote\Model\SourceInterface
 		foreach($this->getRss()->channel->item as $job) {
 			$jobClass = new JobModel();
 
+			//TODO Why doesn't this trim?
+			//Inserted job (13) for Golang Engineer  from  Walmart eCommerce from golangprojects
+			
 			list($jobClass->position, $jobClass->companyname) = array_map('trim', explode('@', $job->title));
+
 			$jobClass->applyurl = (string) $job->link;
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->sourceid = self::SOURCE_ID;
@@ -53,8 +57,8 @@ class GolangProjectsModel implements \GoRemote\Model\SourceInterface
 			
 			$jobClass->description = (!empty($descriptionMatches[1])) ? $descriptionMatches[1] : (string) $job->description;
 			$jobClass->companyurl = (!empty($urlMatches)) ? $urlMatches[1] : '';
-			$jobClass->companylogo = '';
 			$jobClass->companytwitter = (!empty($twitterMatches[1])) ? $twitterMatches[1] : '';
+			$jobClass->companylogo = '';
 
 			$jobs[] = $jobClass;
 		}
