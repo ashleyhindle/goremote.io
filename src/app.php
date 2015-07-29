@@ -122,14 +122,14 @@ $app["db.options"] = [
     "host"      => getenv('APP_MYSQL_HOSTNAME') ?: 'localhost',
     "dbname"    => getenv('APP_MYSQL_DATABASE') ?: 'goremote',
     "user"      => getenv('APP_MYSQL_USERNAME') ?: 'goremote',
-    "password"  => getenv('APP_MYSQL_PASSWORD')
+    "password"  => getenv('APP_MYSQL_PASSWORD') ?: 'goremote123'
 ];
 
 $app->register(new LewisB\PheanstalkServiceProvider\PheanstalkServiceProvider(), array(
     'pheanstalk.server' => '127.0.0.1'
 ));
 
-if (getenv('APP_DEBUG') === true || getenv('APP_DEBUG') === 'true') {
+if ($app['debug'] === true || $app['debug'] === 'true') {
     if ($app['config.enableProfiler'] == true) {
         $app->register($p = new WebProfilerServiceProvider(), [
             'profiler.cache_dir' => '/tmp/cache/profiler/',
@@ -143,11 +143,14 @@ if (getenv('APP_DEBUG') === true || getenv('APP_DEBUG') === 'true') {
                 $message = 'The requested page could not be found.';
                 break;
             default:
-                return new \Symfony\Component\HttpFoundation\RedirectResponse('https://goremote.io');
+                return new \Symfony\Component\HttpFoundation\RedirectResponse('https://goririhrihrihemote.io');
         }
 
         return new Response($message);
     });
 }
+
+
+require __DIR__ . '/controllers.php';
 
 return $app;

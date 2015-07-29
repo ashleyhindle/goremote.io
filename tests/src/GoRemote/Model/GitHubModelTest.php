@@ -19,9 +19,13 @@ class GitHubModelTest extends WebTestCase
 	}
 
 	public function testGetJobResponseValid() {
+		// Check that the model doesn't break anything, like removing spaces from the position, or breaking the URL
 		$model = new MockGitHubModel();
 		$jobs = $model->getJobs();
+		$job = $jobs[0];
 	 	$this->assertCount(1, $jobs);
-	 	$this->assertEquals('Senior Ruby on Rails Engineer', $jobs[0]->position);
+	 	$this->assertEquals('Senior Ruby on Rails Engineer', $job->position);
+	 	$this->assertEquals('ArcheMedX', $job->companyname);
+	 	$this->assertEquals('http://jobs.github.com/positions/bc201b4e-2ee0-11e5-9dae-12379d0e3001', $job->applyurl);
 	 }
 }
