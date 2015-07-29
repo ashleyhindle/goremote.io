@@ -53,7 +53,7 @@ class JobspressoModel implements \GoRemote\Model\SourceInterface
 			$jobClass->companylogo = (!empty($matches[1])) ? $matches[1] : '';			
 			$jobClass->companyname = (!empty($matches[2])) ? $matches[2] : $job->children('job_listing', true)->company;
 
-			preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(?!jobspresso)(\w+)"?\'?/u', $fc, $matches);
+			preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(?!jobspresso)(\w+)"?\'?/iu', $fc, $matches);
 			$jobClass->companytwitter = (!empty($matches[1])) ? $matches[1] : '';
 
 			$jobs[] = $jobClass;
