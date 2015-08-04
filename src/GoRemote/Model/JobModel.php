@@ -84,7 +84,7 @@ class JobModel
 
 	public function getLatestJobs(\GoRemote\Application $app, $interval=self::DEFAULT_SEARCH_INTERVAL)
 	{
-		return $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.twitter as companytwitter, companies.url as companyurl, sources.name as sourcename, sources.url as sourceurl from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL ? SECOND and jobs.datedeleted=0 order by jobs.dateadded desc limit 70',
+		return $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.twitter as companytwitter, companies.url as companyurl, sources.name as sourcename, sources.url as sourceurl from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL ? SECOND and jobs.datedeleted=0 order by jobs.dateadded desc limit 170',
 			[
 				$interval
 			]);
