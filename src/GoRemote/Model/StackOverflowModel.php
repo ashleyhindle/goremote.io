@@ -63,7 +63,7 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 		}
 
 		$fc = file_get_contents($companyUrl);
-		$resultCount = preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(\w+)"?\'?/u', $fc, $matches);
+		$resultCount = preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(?!share)(\w+)"?\'?/u', $fc, $matches);
 
 		if (empty($resultCount)) {
 			return '';
@@ -94,6 +94,10 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 			$jobClass->company->twitter = $this->parseTwitter((string)$job->link);
 
 			$jobs[] = $jobClass;
+
+			if (count($jobs) > 30) {
+				break;
+			}
 		}
 
 		return $jobs;
