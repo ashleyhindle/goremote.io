@@ -48,7 +48,7 @@ class AuthenticJobsModel implements \GoRemote\Model\SourceInterface
 			$jobClass->description = (string) $job->description;
 			$jobClass->sourceid = self::SOURCE_ID;
 			
-			$jobClass->companyname = trim($explodedTitle[0]);
+			$jobClass->company->name = trim($explodedTitle[0]);
 
 			$doc = new \DOMDocument();
 			
@@ -58,8 +58,8 @@ class AuthenticJobsModel implements \GoRemote\Model\SourceInterface
 
 			$xpath = new \DOMXpath($doc);
 			$elements = $xpath->query("//li[@class='twitter']");
-			$jobClass->companytwitter = ($elements->length > 0) ? str_replace('@', '', trim($elements->item(0)->textContent)) : '';
-			$jobClass->companylogo = '';
+			$jobClass->company->twitter = ($elements->length > 0) ? str_replace('@', '', trim($elements->item(0)->textContent)) : '';
+			$jobClass->company->logo = '';
 
 			$jobs[] = $jobClass;
 		}

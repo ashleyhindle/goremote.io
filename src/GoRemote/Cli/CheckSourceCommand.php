@@ -37,13 +37,6 @@ class CheckSourceCommand extends \Knp\Command\Command
 		require_once $modelFile;
 		$className = "\\GoRemote\\Model\\{$source}Model";
 		$source = new $className;
-
-		$companies = [];
-		$companiesFromDb = $this->app['db']->fetchAll('select * from companies');
-		foreach ($companiesFromDb as $c) {
-			$companies[$c['name']] = $c;
-		}
-		unset($companiesFromDb);
  
 		foreach($source->getJobs() as $job) {
 			if ($jobDuplicateCount > 1) {
@@ -51,32 +44,13 @@ class CheckSourceCommand extends \Knp\Command\Command
 				break;
 			}
 
-			$job->companyid = (array_key_exists($job->companyname, $companies)) 
-				? $companies[$job->companyname]['companyid'] : false;
-
-			if (empty($job->companyid)) {
-				$company = [
-					'name' => $job->companyname,
-					'dateadded' => $job->dateadded,
-					'logo' => $job->companylogo,
-					'twitter' => $job->companytwitter,
-					'url' => $job->companyurl
-				];
-
-				$this->app['db']->insert('companies', $company);
-				$job->companyid = $this->app['db']->lastInsertId();
-
-				$company['companyid'] = $job->companyid;
-				$companies[$company['name']] = $company; // Add to the cach array above
-			}
-
 			$job->position = preg_replace('/looking for an?/i', '', $job->position);
-
+			$job->company->id = $job->company->insert($this->app['db']);
 			$jobid = $job->insert($this->app['db']);
 
 			if ($jobid) {
 				$sourceName = $className::SOURCE_NAME;
-				$output->writeln("Inserted job ({$jobid}) for {$job->position} from {$job->companyname} from {$sourceName}");
+				$output->writeln("Inserted job ({$jobid}) for {$job->position} from {$job->company->name} from {$sourceName}");
 
 				// Only tweet if we're not in debug mode (debug for vagrant)
 				if (!$this->app['debug']) {

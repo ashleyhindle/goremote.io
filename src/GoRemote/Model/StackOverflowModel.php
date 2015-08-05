@@ -89,9 +89,9 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 			$jobClass->sourceid = self::SOURCE_ID;
 			
 			preg_match('/ at (.+)\(/U', (string) $job->title, $matches);
-			$jobClass->companyname = trim($matches[1]);
-			$jobClass->companylogo = '';
-			$jobClass->companytwitter = $this->parseTwitter((string)$job->link);
+			$jobClass->company->name = trim($matches[1]);
+			$jobClass->company->logo = '';
+			$jobClass->company->twitter = $this->parseTwitter((string)$job->link);
 
 			$jobs[] = $jobClass;
 		}

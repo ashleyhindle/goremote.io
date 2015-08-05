@@ -47,9 +47,9 @@ class DribbbleModel implements \GoRemote\Model\SourceInterface
 			$jobClass->description = (string) $job->title;
 			$jobClass->sourceid = self::SOURCE_ID;
 
-			$jobClass->companylogo = '';
-			$jobClass->companytwitter = '';
-			$jobClass->companyname = (string) $job->children('dc', true)->creator;
+			$jobClass->company->logo = '';
+			$jobClass->company->twitter = '';
+			$jobClass->company->name = (string) $job->children('dc', true)->creator;
 
 			$jobs[] = $jobClass;
 		}

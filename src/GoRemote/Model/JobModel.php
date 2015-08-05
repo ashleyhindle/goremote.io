@@ -10,13 +10,14 @@ class JobModel
 	public $description;
 	public $sourceid;
 	//TODO: Make ->company a class/model of Company instead of these silly variables
-	public $companyid;
-	public $companyname;
-	public $companyurl = '';
-	public $companytwitter;
-	public $companylogo;
+	public $company;
 
 	const DEFAULT_SEARCH_INTERVAL = 2592000; // 86400 * 30 - 1 month (ish)
+
+	public function __construct()
+	{
+		$this->company = new \GoRemote\Model\CompanyModel();
+	}
 
 	public function insert(\Doctrine\DBAL\Connection $db)
 	{
@@ -28,7 +29,7 @@ class JobModel
 				(int) $this->sourceid,
 				(string) trim($this->applyurl),
 				(string) trim($this->position),
-				(int) $this->companyid
+				(int) $this->company->id
 			]);
 
 		if ($jobDuplicate) {
@@ -45,7 +46,7 @@ class JobModel
 			'dateadded' => $this->dateadded,
 			'description' => trim($this->description),
 			'sourceid' => $this->sourceid,
-			'companyid' => $this->companyid,
+			'companyid' => $this->company->id,
 			]);
 
 		$this->jobid = $db->lastInsertId();
@@ -60,7 +61,7 @@ class JobModel
 			$app['config.twitter']['token'],
 			$app['config.twitter']['token_secret']
 			);
-		$companyname = (!empty($this->companytwitter)) ? '@' . $this->companytwitter : trim($this->companyname);
+		$companyname = (!empty($this->company->twitter)) ? '@' . $this->company->twitter : trim($this->company->name);
 		$tweet = [
 			'status' => str_replace(
 				[

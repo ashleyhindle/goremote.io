@@ -43,7 +43,7 @@ class GolangProjectsModel implements \GoRemote\Model\SourceInterface
 			//TODO Why doesn't this trim?
 			//Inserted job (13) for Golang Engineer  from  Walmart eCommerce from golangprojects
 			
-			list($jobClass->position, $jobClass->companyname) = array_map('trim', explode('@', $job->title));
+			list($jobClass->position, $jobClass->company->name) = array_map('trim', explode('@', $job->title));
 
 			$jobClass->applyurl = (string) $job->link;
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->setTimezone($tz)->format('Y-m-d H:i:s');
@@ -56,9 +56,9 @@ class GolangProjectsModel implements \GoRemote\Model\SourceInterface
 			preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(?!share)(?!golangprojects)(\w+)"?\'?/u', $fc, $twitterMatches);
 			
 			$jobClass->description = (!empty($descriptionMatches[1])) ? $descriptionMatches[1] : (string) $job->description;
-			$jobClass->companyurl = (!empty($urlMatches)) ? $urlMatches[1] : '';
-			$jobClass->companytwitter = (!empty($twitterMatches[1])) ? $twitterMatches[1] : '';
-			$jobClass->companylogo = '';
+			$jobClass->company->url = (!empty($urlMatches)) ? $urlMatches[1] : '';
+			$jobClass->company->twitter = (!empty($twitterMatches[1])) ? $twitterMatches[1] : '';
+			$jobClass->company->logo = '';
 
 			$jobs[] = $jobClass;
 		}
