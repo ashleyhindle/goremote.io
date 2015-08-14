@@ -17,7 +17,7 @@ class CheckSourceCommand extends \Knp\Command\Command
 			->addArgument(
 				'source',
 				InputArgument::REQUIRED,
-				'Which source to check? - WeWorkRemotely, Wfh, GitHub, StackOverflow, AuthenticJobs, Jobspresso'
+				'Which source to check? - WeWorkRemotely, Wfh, GitHub, StackOverflow, AuthenticJobs, Jobspresso, HackerNews'
 				);
 	}
 
@@ -36,7 +36,11 @@ class CheckSourceCommand extends \Knp\Command\Command
 		$jobDuplicateCount = 0;
 		require_once $modelFile;
 		$className = "\\GoRemote\\Model\\{$source}Model";
-		$source = new $className;
+		if ($source == 'HackerNews') { // This is horrible - TODO make this less horrible
+			$source = new $className($this->app['db']);
+		} else {
+			$source = new $className();
+		}
  
 		foreach($source->getJobs() as $job) {
 			if ($jobDuplicateCount > 1) {

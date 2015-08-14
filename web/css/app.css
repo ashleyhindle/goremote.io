@@ -36,6 +36,10 @@ ul {
 	font-weight: bold;
 }
 
+.job .position {
+	overflow: scroll;
+}
+
 .job .date {
 	color: #333333;
 }

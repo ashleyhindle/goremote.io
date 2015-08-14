@@ -8,9 +8,9 @@
     	<li class='job'>
     		<a href='{{ path('job-by-id-title', {id: job.jobid, title: slugify(job.position)}) }}'>
 	    		<span class="company">{{job.companyname}}</span>
-	    		<span class="position">{{job.position}}</span>
 	    		<span class="right date show-for-medium-up">{{job.dateadded_unixtime|date('M d')}}</span>
                 <span class="right source show-for-medium-up">{{job.sourcename}}</span>
+                <div class="position">{{job.position}}</div>
     		</a>
     	</li>
     {% endfor %}

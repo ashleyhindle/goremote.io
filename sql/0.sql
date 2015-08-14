@@ -41,4 +41,5 @@ insert into sources (sourceid, url, name, twitter, dateadded, enabled) VALUES
 	(6, 'https://goremote.io', 'Hand Picked by GoRemote', 'goremote', UTC_TIMESTAMP(), 1),
 	(7, 'https://jobspresso.co', 'Jobspresso', 'jobspresso', UTC_TIMESTAMP(), 1),
 	(8, 'https://dribbble.com', 'Dribbble', 'dribbble', UTC_TIMESTAMP(), 1),
-	(9, 'http://golangprojects.com', 'GolangProjects', 'golangprojects', UTC_TIMESTAMP(), 1);
+	(9, 'http://golangprojects.com', 'GolangProjects', 'golangprojects', UTC_TIMESTAMP(), 1),
+	(10, 'https://news.ycombinator.com', 'HackerNews', 'hackernews', UTC_TIMESTAMP(), 1);

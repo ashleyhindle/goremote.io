@@ -11,6 +11,7 @@ class JobModel
 	public $sourceid;
 	//TODO: Make ->company a class/model of Company instead of these silly variables
 	public $company;
+	public $hackernews = 0;
 
 	const DEFAULT_SEARCH_INTERVAL = 2592000; // 86400 * 30 - 1 month (ish)
 
