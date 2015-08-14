@@ -23,4 +23,7 @@
 
     <a href='{{job.applyurl}}' class='button'>Apply for this position</a>
     <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this job at {% if job.companytwitter is not empty %}@{{job.companytwitter}}{% else %}{{job.companyname}}{% endif %}" data-via="GoRemoteIo" data-size="large" data-related="GoRemoteIo" data-count="none">Share this job</a>
+
+    <hr>
+    <a href='mailto:hey@goremote.io?subject=Not remote&body=The job with jobid {{job.jobid}} is _not_ remote'>Not remote? Let us know!</a>
 {% endblock %}
