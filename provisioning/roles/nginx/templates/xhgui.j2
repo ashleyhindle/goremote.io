@@ -1,0 +1,22 @@
+server {
+    listen   80;
+    server_name xhgui.localhost;
+
+    # root directive should be global
+    root 	/usr/local/composer/vendor/perftools/xhgui/webroot;
+    index  	index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$uri&$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        include fastcgi_params;
+        fastcgi_pass   unix:/var/run/php5-fpm.sock;
+        fastcgi_index   index.php;
+        fastcgi_param 	SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PHP_VALUE auto_prepend_file=;
+
+    }
+}

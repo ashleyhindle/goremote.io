@@ -16,9 +16,11 @@
   - php5-geoip
   - php5-memcached
   - php5-xdebug
+  - php5-xhprof
   - php5-xsl
   - php5-gd
-    
+  - php5-mongo
+
 - name: Disable default pool
   command: mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/www.disabled creates=/etc/php5/fpm/pool.d/www.disabled
   notify: restart php5-fpm
@@ -34,6 +36,17 @@
 - name: Copy php.ini file
   template: src=phpini.j2 dest=/etc/php5/fpm/php.ini
   notify: restart php5-fpm
+
+- name: Copy 20-xdebug.ini file
+  template: src=20-xdebug.ini.j2 dest=/etc/php5/fpm/conf.d/20-xdebug.ini
+  notify: restart php5-fpm
+
+- name: Copy 20-xhprof.ini file
+  template: src=20-xhprof.ini.j2 dest=/etc/php5/fpm/conf.d/20-xhprof.ini
+  notify: restart php5-fpm
+
+- name: Create xhprof output_dir directory
+  file: path=/var/tmp/xhprof/ state=directory
 
 - name: Enable mcrypt module
   command: php5enmod mcrypt

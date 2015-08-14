@@ -25,3 +25,6 @@
     - beanstalk
     - geoip
     - debug-file
+    - mongo
+    - composer
+    - xhgui

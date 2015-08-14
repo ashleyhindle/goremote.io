@@ -2,11 +2,12 @@
 - name: Install Nginx
   apt: pkg=nginx state=latest
 
-- name: Move proxy Config
-  copy: src=proxy.conf dest=/etc/nginx/proxy.conf mode=0755
-
 - name: Change default nginx site
   template: src=default.j2 dest=/etc/nginx/sites-enabled/default
+  notify: restart nginx
+
+- name: Add xhgui nginx site
+  template: src=xhgui.j2 dest=/etc/nginx/sites-enabled/xhgui
   notify: restart nginx
 
 - shell: grep ^processor /proc/cpuinfo | wc -l

@@ -1,0 +1,12 @@
+# Thanks to @akrabat http://akrabat.com/installing-xhgui-via-ansible/
+- name: Install XHGui
+  shell: export COMPOSER_HOME=/usr/local/composer && composer global require --ignore-platform-reqs 'perftools/xhgui=dev-master' creates=/usr/local/composer/vendor/perftools/xhgui/composer.json
+
+- name: Set XHGui permisssions
+  file: path=/usr/local/composer/vendor/perftools/xhgui/cache group=www-data mode=775
+
+- name: Configure XHGui
+  template: src=config.php.j2 dest=/usr/local/composer/vendor/perftools/xhgui/config/config.php owner=vagrant group=www-data mode=644
+
+- name: Index mongo for XHGui
+  script: xhgui_indexes.sh --some-arguments 1234 creates=/root/indexed_xhgui.txt

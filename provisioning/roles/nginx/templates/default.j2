@@ -34,6 +34,7 @@ server {
         fastcgi_param APP_MYSQL_HOSTNAME {{ mysql_hostname }};
         fastcgi_param APP_MYSQL_PASSWORD {{ mysql_password }};
         fastcgi_param APP_MYSQL_DATABASE {{ mysql_database }};
+        fastcgi_param PHP_VALUE auto_prepend_file=/usr/local/composer/vendor/perftools/xhgui/external/header.php;
     }
 
     # Hide hidden files

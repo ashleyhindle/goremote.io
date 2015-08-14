@@ -1,0 +1,12 @@
+# Thanks go to @akrabat for allowing me to borrow this http://akrabat.com/installing-xhgui-via-ansible/
+- name: Install Composer
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin creates=/usr/local/bin/composer
+
+- name: Rename composer.phar to composer
+  shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+
+- name: Make composer executable
+  file: path=/usr/local/bin/composer mode=a+x state=file
+
+- name: Create global composer directory
+  file: path=/usr/local/composer state=directory mode=0775

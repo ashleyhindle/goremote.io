@@ -1,0 +1,6 @@
+---
+- name: MongoDB Server
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - mongodb
+    - php5-mongo
