@@ -19,7 +19,7 @@ use Silex\Provider\TwigServiceProvider;
 
 /**
  * @var Symfony\Component\HttpFoundation\Session\Session $session
- * @var Silex\Application $app
+ * @var GoRemote\Application $app
  */
 
 $app = new Application();
