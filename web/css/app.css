@@ -37,7 +37,7 @@ ul {
 }
 
 .job .position {
-	overflow: scroll;
+	overflow: hidden;
 }
 
 .job .date {
