@@ -35,9 +35,6 @@
         "psr-0": { "": "src/" }
     },
     "scripts": {
-      "post-create-project-cmd": [
-        "npm install"
-      ],
       "test": [
         "vendor/phpunit/phpunit/phpunit"
       ],
