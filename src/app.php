@@ -143,7 +143,7 @@ if ($app['debug'] === true || $app['debug'] === 'true') {
                 $message = 'The requested page could not be found.';
                 break;
             default:
-                return new \Symfony\Component\HttpFoundation\RedirectResponse('https://goririhrihrihemote.io');
+                return new \Symfony\Component\HttpFoundation\RedirectResponse('https://goremote.io/?error=' . $code);
         }
 
         return new Response($message);
