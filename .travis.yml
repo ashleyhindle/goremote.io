@@ -8,3 +8,6 @@ php:
 install:
   - npm install
   - composer install
+
+before_script:
+  - composer self-update
