@@ -1,6 +1,7 @@
 # GoRemote.io
 Silex app for monitoring sites with remote friendly positions - we'll generate a database of the jobs, and create an API for other people to get the information  
 
+[![Build Status](https://travis-ci.org/ashleyhindle/goremote.io.svg?branch=master)](https://travis-ci.org/ashleyhindle/goremote.io)
 
 # API
 Added a basic api which returns JSON:
