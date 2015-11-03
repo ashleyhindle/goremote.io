@@ -25,7 +25,7 @@ class GitHubModelTest extends WebTestCase
 		$job = $jobs[0];
 	 	$this->assertCount(1, $jobs);
 	 	$this->assertEquals('Senior Ruby on Rails Engineer', $job->position);
-	 	$this->assertEquals('ArcheMedX', $job->companyname);
+	 	$this->assertEquals('ArcheMedX', $job->company->name);
 	 	$this->assertEquals('http://jobs.github.com/positions/bc201b4e-2ee0-11e5-9dae-12379d0e3001', $job->applyurl);
 	 }
 }
