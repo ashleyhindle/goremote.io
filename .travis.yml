@@ -5,9 +5,20 @@ php:
   - 5.6
   - nightly
 
+services:
+  - mysql
+  - memcached
+
 install:
   - npm install
   - composer install
+
+before_install:
+  - mysql -e "create database IF NOT EXISTS goremote;" -uroot
+  - mysql -e "grant all on goremote.* to 'goremote'@'127.0.0.1' identified by 'goremote123';" -uroot
+  - mysql -e "grant all on goremote.* to 'goremote'@'localhost' identified by 'goremote123';" -uroot
+  - cat $TRAVIS_BUILD_DIR/sql/0.sql | mysql -ugoremote -pgoremote123 -h127.0.0.1 goremote
+  - cat $TRAVIS_BUILD_DIR/sql/1.sql | mysql -ugoremote -pgoremote123 -h127.0.0.1 goremote
 
 before_script:
   - composer self-update
