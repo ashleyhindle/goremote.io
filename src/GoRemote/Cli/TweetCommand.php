@@ -27,9 +27,8 @@ class TweetCommand extends \Knp\Command\Command
 		$this->app = $this->getSilexApplication();
 		$tweetMessage = $input->getArgument('tweet');
 		$output->writeln("Sending tweet: '{$tweetMessage}'");
-		$this->app['twitter']->setToken($this->app['config.twitter']['key'], $this->app['config.twitter']['secret']);
 		$tweet = [
-			'status' => $tweetMessage
+			'status' => $tweetMessage,
 		];
 
 		$reply = $this->app['twitter']->statuses_update($tweet);
