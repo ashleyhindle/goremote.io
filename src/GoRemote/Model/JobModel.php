@@ -59,8 +59,8 @@ class JobModel
 	{
 		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} {link} - work from anywhere! #remote";
 		$app['twitter']->setToken(
-			$app['config.twitter']['token'],
-			$app['config.twitter']['token_secret']
+			$app['config.twitter']['key'],
+			$app['config.twitter']['secret']
 			);
 		$companyname = (!empty($this->company->twitter)) ? '@' . $this->company->twitter : trim($this->company->name);
 		$tweet = [
