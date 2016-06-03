@@ -58,7 +58,7 @@ class JobModel
 	public function tweet($app)
 	{
 		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} {link} - work from anywhere! #remote";
-		$companyname = (!empty($this->company->twitter)) ? '@' . $this->company->twitter : trim($this->company->name);
+		$companyname = (!empty($this->company->twitter)) ? $this->company->twitter : trim($this->company->name);
 		$tweet = [
 			'status' => str_replace(
 				[
