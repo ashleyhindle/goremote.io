@@ -169,7 +169,7 @@ class HackerNewsModel implements \GoRemote\Model\SourceInterface
 			$name = html_entity_decode(trim(current(explode($separator, $text))));
 		}
 
-		return $name;
+		return strip_tags($name);
 	}
 
 	protected function getJobsJson()
