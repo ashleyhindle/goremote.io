@@ -174,6 +174,6 @@ class HackerNewsModel implements \GoRemote\Model\SourceInterface
 
 	protected function getJobsJson()
 	{
-		return $this->getFirebaseItem(12202865); // 12202865 is August
+		return $this->getFirebaseItem(12405698); // 12405698 is September
 	}
 }
