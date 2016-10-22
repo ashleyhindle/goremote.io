@@ -33,7 +33,7 @@ class JobModel
         'sinatra', 'kernel', 'virtual machine', 'engineer', 'sysadmin', 'vlan', 'firewall', 'backup', 'high availability', 'virtualisation', 'virtualization',
         'saltstack', 'c++', 'front end', 'beanstalk', 'beanstalkd', 'happiness engineer', 'backend engineer', 'frontend engineer',
         'infrastructure', 'senior software engineer', 'network', 'storage', 'success engineer', 'accountant', 'technical editor',
-        'QA', 'UX', 'CRM',
+        ' QA ', ' UX ', 'CRM',
     ];
 
 
