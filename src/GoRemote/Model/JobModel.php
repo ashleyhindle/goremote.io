@@ -18,7 +18,7 @@ class JobModel
     protected $buzzwords = [
         'javascript', 'node', 'php', 'ruby', 'rails', 'clojure', 'java', 'html', 'css', 'frontend', 'front-end',
         'devops', 'backend', 'back-end', 'angular', 'chef', 'vagrant', 'docker', 'salt', 'haddop', 'cassandra', 'mysql',
-        'postgresql', 'postgres', 'mobile', 'machine learning', 'nlp', 'react', 'operations', 'software engineer', 'support', 'manager', 'symfony',
+        'postgresql', 'postgres', 'mobile', 'machine learning', 'nlp', 'react', 'operations', 'software engineer', 'manager', 'symfony',
         'laravel', 'qa', 'full-stack', 'full stack', 'rest ', 'api', 'senior', 'intern', 'ansible', 'consul', 'nginx',
         'coffeescript', 'backbone', 'knockout', 'haml', 'tdd', 'aws', 'python', 'flask', 'spring', 'sql', 'tomcat', 'designer',
         'cloud', 'scala', 'haskell', 'android', 'ios', 'swift', 'objective c', 'flux', 'redis', 'elasticache', 'elasticsearch',
