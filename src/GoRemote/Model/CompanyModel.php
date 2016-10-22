@@ -24,7 +24,8 @@ class CompanyModel
                     ->set('logo', '?')
                     ->where('companyid = ?')
                     ->setParameter(0, $this->logo)
-                    ->setParameter(1, $duplicateId['companyid']);
+                    ->setParameter(1, $duplicateId['companyid'])
+                    ->execute();
             }
 			$this->id = $duplicateId;
 			return $duplicateId;
