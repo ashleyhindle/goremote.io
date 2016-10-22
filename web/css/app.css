@@ -32,8 +32,9 @@ ul {
 }
 
 .job .company {
-	color: #222222;
+	color: #666666;
 	font-weight: bold;
+	font-size: 0.8rem;
 }
 
 .job .position {

@@ -3,11 +3,12 @@ namespace GoRemote\Model;
 
 use GoRemote\Model\JobModel;
 
-class HackerNewsModel implements \GoRemote\Model\SourceInterface
+class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterface
 {
 	const SOURCE_URL = 'https://hacker-news.firebaseio.com/v0/item/{ITEM}.json?print=pretty';
 	const SOURCE_NAME = 'hackernews';
 	const SOURCE_ID = 10;
+
 	private $processedItems = [];
 	private $db;
 
@@ -43,41 +44,6 @@ class HackerNewsModel implements \GoRemote\Model\SourceInterface
 		}
 
 		return $valid;
-	}
-
-	private $buzzwords = [
-		'javascript', 'node', 'php', 'ruby', 'rails', 'clojure', 'java', 'html', 'css', 'frontend', 'front-end',
-		'devops', 'backend', 'back-end', 'angular', 'chef', 'vagrant', 'docker', 'salt', 'haddop', 'cassandra', 'mysql', 
-		'postgresql', 'postgres', 'mobile', 'machine learning', 'nlp', 'react', 'operations', 'software engineer', 'support', 'manager', 'symfony',
-		'laravel', 'qa', 'full-stack', 'full stack', 'rest ', 'api', 'senior', 'intern', 'ansible', 'consul', 'nginx',
-		'coffeescript', 'backbone', 'knockout', 'haml', 'tdd', 'aws', 'python', 'flask', 'spring', 'sql', 'tomcat', 'designer',
-		'cloud', 'scala', 'haskell', 'android', 'ios', 'swift', 'objective c', 'flux', 'redis', 'elasticache', 'elasticsearch',
-		'browserify', 'git', 'nlp', 'machine learning', 'product manager', 'project manager', 'objective-c', 'ux ', 'ui ',
-		'opencv', 'django', 'celery', 'erlang', 'amazon web services', 'linux', 'PCI', 'redshift', 'customer success', 'customer support',
-		'jenkins', 'perl', 'golang', 'go ', 'paas', 'elastic search', 'game', 'unity', 'bgp', 'dns', 'scala', 'neo4j', 'c#', 'asp.net', '.net', 'marionette', 'mssql',
-		'vpn', 'nosql', 'opengl', 'opencl', 'cuda', 'gpu', 'crypto', 'heroku', 'erlang', 'electron', 'mongo', 'dev-ops', 'dev ops',
-		'phonegap', 'jenkins', 'saas', 'paas', 'security', 'analytics', 'physics', 'dba', 'distributed', 'containers', 'junior',
-		'big data', 'data science', 'sales', 'cordova', 'multiple positions', 'haproxy', 'cdn', 'sass', 'zookeeper',
-		'xml', 'json', 'system admin', 'zeromq', 'kafka', 'ec2', 'route53', 'aurora', 'es6', 'cloudfront', 'babel',
-		'npm', 'mocha', 'marketing', ' qt', 'solr', 'tdd', 'agile', 'rabbitmq', 'grunt', 'gulp', 'd3', 'iaas', 'computer vision',
-		'sinatra', 'kernel', 'virtual machine', 'engineer', 'sysadmin', 'vlan', 'firewall', 'backup', 'high availability', 'virtualisation', 'virtualization',
-		'saltstack', 'c++'
-	];
-
-	private function extractBuzzwords($text)
-	{
-		$text = strtolower($text);
-		$regexp = '/' . implode('|', array_map('preg_quote', $this->buzzwords)) . '/i';
-		$count = preg_match_all($regexp, $text, $matches);
-
-		return ($count > 0) ? array_map('ucwords', 
-								array_map('trim', 
-									array_unique(
-										$matches[0]
-									)
-								)
-							)
-							: [];
 	}
 
 	public function getJobs()
