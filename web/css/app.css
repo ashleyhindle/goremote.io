@@ -37,6 +37,10 @@ ul {
 	font-size: 0.8rem;
 }
 
+.not-too-wide {
+	max-width: 300px;
+}
+
 .job .position {
 	overflow: hidden;
 }
@@ -70,4 +74,9 @@ ul {
 
 .row {
 	padding:5px;
+}
+
+.description {
+	border-top: 1px solid #999999;
+	margin-bottom: 1rem;
 }

@@ -33,7 +33,7 @@ class JobModel
         'sinatra', 'kernel', 'virtual machine', 'engineer', 'sysadmin', 'vlan', 'firewall', 'backup', 'high availability', 'virtualisation', 'virtualization',
         'saltstack', 'c++', 'front end', 'beanstalk', 'beanstalkd', 'happiness engineer', 'backend engineer', 'frontend engineer',
         'infrastructure', 'senior software engineer', 'network', 'storage', 'success engineer', 'accountant', 'technical editor',
-        'QA',
+        'QA', 'UX', 'CRM',
     ];
 
 
@@ -106,7 +106,7 @@ class JobModel
 		return $app['twitter']->statuses_update($tweet);
 	}
 
-    protected function extractBuzzwords($text)
+    public function extractBuzzwords($text)
     {
         $text = strtolower($text);
         $matches = [];

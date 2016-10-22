@@ -1,6 +1,7 @@
 <?php
 namespace GoRemote\Controller;
 
+use GoRemote\Model\JobModel;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +15,14 @@ class JobController
     			$request->get('id')
     		]);
 
-	if (empty($jobs)) {
-		return $app->redirect('/?invalidJob');
-	}
+        if (empty($jobs)) {
+            return $app->redirect('/?invalidJob');
+        }
 
-        return $app['twig']->render('job.html.twig', [ 'job' => $jobs[0] ]);
+        $job = $jobs[0];
+        $job['tags'] = (new JobModel())->extractBuzzwords($job['position'] . ' ' . $job['description']);
+
+        return $app['twig']->render('job.html.twig', [ 'job' => $job ]);
     }
 
     public function searchAction(Request $request, Application $app)

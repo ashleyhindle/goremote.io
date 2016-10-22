@@ -8,20 +8,30 @@
 
 {% block content %}
 	{% if job.companylogo is not empty %}
-    	<img class='right' src='{{job.companylogo}}' />
+    	<img class='right not-too-wide' src='{{job.companylogo}}' />
+        {%  else %}
+        <h4 class="right">{{ job.companyname }}</h4>
     {% endif %}
 
     <h1>{{job.position}}</h1>
-    <h2>{{job.companyname}}</h2>
-    <h3>Added {{job.dateadded_unixtime|date('M d')}} from <a href='{{job.sourceurl}}'>{{job.sourcename}}</a></h3>
+
+    <h5>Added {{job.dateadded_unixtime|date('M d')}} from <a href='{{job.sourceurl}}'>{{job.sourcename}}</a></h5>
+
+    <p>
+    {% for tag in job.tags %}
+        {%  if loop.index < 12 %}
+            <span class="label radius secondary"><a href="/search/{{ tag|url_encode }}">{{ tag }}</a></span>
+        {% endif %}
+    {%  endfor %}
+    </p>
 
     <a href='{{job.applyurl}}' class='show-for-small-only button'>Apply for this position</a>
-    <hr>
 
-    {{job.description|clickable|replace({"\n": "<br />"})|raw}}
-	<br>
+    <div class="description">
+        {{job.description|trim|clickable|replace({"\n": "<br />"})|raw}}
+	</div>
 
-    <a href='{{job.applyurl}}' class='button'>Apply for this position</a>
+    <a href='{{job.applyurl}}' class='button'>Apply for this position</a><br/>
     <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this job at {% if job.companytwitter is not empty %}@{{job.companytwitter}}{% else %}{{job.companyname}}{% endif %}" data-via="GoRemoteIo" data-size="large" data-related="GoRemoteIo" data-count="none">Share this job</a>
 
     <hr>
