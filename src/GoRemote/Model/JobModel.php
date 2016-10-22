@@ -24,7 +24,7 @@ class JobModel
         'cloud', 'scala', 'haskell', 'android', 'ios', 'swift', 'objective c', 'flux', 'redis', 'elasticache', 'elasticsearch',
         'browserify', 'git', 'nlp', 'machine learning', 'product manager', 'project manager', 'objective-c', 'ux ', 'ui ',
         'opencv', 'django', 'celery', 'erlang', 'amazon web services', 'linux', 'PCI', 'redshift', 'customer success', 'customer support',
-        'jenkins', 'perl', 'golang', 'go ', 'paas', 'elastic search', 'game', 'unity', 'bgp', 'dns', 'scala', 'neo4j', 'c#', 'asp.net', '.net', 'marionette', 'mssql',
+        'jenkins', 'perl', 'golang', 'go ', 'paas', 'elastic search', 'game', ' unity', 'bgp', 'dns', 'scala', 'neo4j', 'c#', 'asp.net', '.net', 'marionette', 'mssql',
         'vpn', 'nosql', 'opengl', 'opencl', 'cuda', 'gpu', 'crypto', 'heroku', 'erlang', 'electron', 'mongo', 'dev-ops', 'dev ops',
         'phonegap', 'jenkins', 'saas', 'paas', 'security', 'analytics', 'physics', 'dba', 'distributed', 'containers', 'junior',
         'big data', 'data science', 'sales', 'cordova', 'multiple positions', 'haproxy', 'cdn', 'sass', 'zookeeper',
