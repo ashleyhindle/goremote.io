@@ -11,13 +11,21 @@ class CompanyModel
 
 	public function insert(\Doctrine\DBAL\Connection $db)
 	{
-		$duplicateId = $db->fetchColumn(
-			'select companyid from companies where name=?',
+		$duplicateId = $db->fetchAssoc(
+			'select companyid, url, logo from companies where name=?',
 			[
 				(string) $this->name
 			]);
 
 		if ($duplicateId) {
+            if (empty($duplicateId['logo']) && !empty($this->logo)) {
+                $db->createQueryBuilder()
+                    ->update('companies')
+                    ->set('logo', '?')
+                    ->where('companyid = ?')
+                    ->setParameter(0, $this->logo)
+                    ->setParameter(1, $duplicateId['companyid']);
+            }
 			$this->id = $duplicateId;
 			return $duplicateId;
 		}
