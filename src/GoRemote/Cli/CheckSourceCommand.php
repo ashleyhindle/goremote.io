@@ -70,6 +70,7 @@ class CheckSourceCommand extends \Knp\Command\Command
             $output->writeln("Testing: {$job->position}");
 
 			if ($jobid !== false) {
+                $output->writeln("\tNot duplicate");
 				$sourceName = $className::SOURCE_NAME;
 				$output->writeln("Inserted job ({$jobid}) for {$job->position} from {$job->company->name} from {$sourceName}");
 
@@ -80,6 +81,7 @@ class CheckSourceCommand extends \Knp\Command\Command
 				    $output->writeln("Not tweeting");
                 }
 			} else {
+			    $output->writeln("\tDuplicate");
 				$jobDuplicateCount++;
 			}
 		}
