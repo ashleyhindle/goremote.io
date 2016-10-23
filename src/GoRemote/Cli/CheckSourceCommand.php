@@ -64,7 +64,11 @@ class CheckSourceCommand extends \Knp\Command\Command
 			}
 
 			$job->position = preg_replace('/looking for an?/i', '', $job->position);
-			$job->company->id = $job->company->insert($this->app['db']);
+
+            $output->writeln("Testing: {$job->position}");
+
+
+            $job->company->id = $job->company->insert($this->app['db']);
             try {
                 $jobid = $job->insert($this->app['db']);
             } catch (\Exception $e) {
@@ -72,7 +76,6 @@ class CheckSourceCommand extends \Knp\Command\Command
                 $output->writeln($e->getMessage());
             }
 
-            $output->writeln("Testing: {$job->position}");
 
 			if ($jobid !== false) {
                 $output->writeln("\tNot duplicate");
