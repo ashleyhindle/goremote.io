@@ -56,7 +56,7 @@ class JobModel
 			]);
 
 		if ($jobDuplicate) {
-			return false;
+			Throw new \Exception('Duplicate job: ' . $jobDuplicate);
 		}
 
 		$this->description = $string = preg_replace('/(<br\/>){2,}/','<br/>', html_entity_decode(trim(strip_tags(str_replace(

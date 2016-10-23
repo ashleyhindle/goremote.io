@@ -65,7 +65,12 @@ class CheckSourceCommand extends \Knp\Command\Command
 
 			$job->position = preg_replace('/looking for an?/i', '', $job->position);
 			$job->company->id = $job->company->insert($this->app['db']);
-			$jobid = $job->insert($this->app['db']);
+            try {
+                $jobid = $job->insert($this->app['db']);
+            } catch (\Exception $e) {
+                $jobid = false;
+                $output->writeln($e->getMessage());
+            }
 
             $output->writeln("Testing: {$job->position}");
 
