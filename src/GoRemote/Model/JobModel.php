@@ -46,7 +46,7 @@ class JobModel
 	{
 
 		$jobDuplicate = $db->fetchColumn(
-			'select jobid from jobs where (dateadded=? and sourceid=? and applyurl=?) or (position=? and companyid=?)',
+			'select jobid from jobs where (dateadded=? and sourceid=? and applyurl=?) or (position=? and companyid=? and dateadded > NOW() - INTERVAL 1 MONTH)',
 			[
 				(string) $this->dateadded,
 				(int) $this->sourceid,
