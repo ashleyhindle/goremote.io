@@ -1,9 +1,9 @@
 <?php
 namespace GoRemote\Cli;
 
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
 class CheckSourceCommand extends \Knp\Command\Command
 {
@@ -18,7 +18,19 @@ class CheckSourceCommand extends \Knp\Command\Command
 				'source',
 				InputArgument::REQUIRED,
 				'Which source to check? - WeWorkRemotely, Wfh, GitHub, StackOverflow, AuthenticJobs, Jobspresso, HackerNews'
-				);
+				)
+            ->addArgument(
+                'tweet',
+                InputArgument::OPTIONAL,
+                'Shall we tweet',
+                true
+            )
+            ->addArgument(
+                'stopOnDuplicateCount',
+                InputArgument::OPTIONAL,
+                'After how many duplicate jobs should we give up',
+                1
+            );
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
@@ -26,6 +38,9 @@ class CheckSourceCommand extends \Knp\Command\Command
 		$this->app = $this->getSilexApplication();
 
 		$source = $input->getArgument('source');
+        $tweet = !(empty($input->getArgument('tweet')) || $input->getArgument('tweet') == 'false');
+        $stopOnDuplicateCount = $input->getArgument('stopOnDuplicateCount');
+
 		$output->writeln("Testing Source: {$source}");
 		$modelFile = $this->getProjectDirectory() . '/Model/' . $source . 'Model.php';
 		if (!file_exists($modelFile) || !is_readable($modelFile)) {
@@ -43,7 +58,7 @@ class CheckSourceCommand extends \Knp\Command\Command
 		}
  
 		foreach($source->getJobs() as $job) {
-			if ($jobDuplicateCount > 1) {
+			if ($jobDuplicateCount >= $stopOnDuplicateCount) {
 				$output->writeln("Too many duplicate jobs, must be up to date (unless they're not in order) so stopping");
 				break;
 			}
@@ -52,14 +67,18 @@ class CheckSourceCommand extends \Knp\Command\Command
 			$job->company->id = $job->company->insert($this->app['db']);
 			$jobid = $job->insert($this->app['db']);
 
-			if ($jobid) {
+            $output->writeln("Testing: {$job->position}");
+
+			if ($jobid !== false) {
 				$sourceName = $className::SOURCE_NAME;
 				$output->writeln("Inserted job ({$jobid}) for {$job->position} from {$job->company->name} from {$sourceName}");
 
 				// Only tweet if we're not in debug mode (debug for vagrant)
-				if (!$this->app['debug']) {
+				if (!$this->app['debug'] && $tweet) {
 					$job->tweet($this->app);
-				}
+				} else {
+				    $output->writeln("Not tweeting");
+                }
 			} else {
 				$jobDuplicateCount++;
 			}
