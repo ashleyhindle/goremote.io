@@ -27,8 +27,8 @@ class CompanyModel
                     ->setParameter(1, $duplicateId['companyid'])
                     ->execute();
             }
-			$this->id = $duplicateId;
-			return $duplicateId;
+			$this->id = $duplicateId['companyid'];
+			return $duplicateId['companyid'];
 		}
 
 		$company = [
