@@ -1,9 +1,9 @@
 ---
-- name: Add PPA for latest PHP5.5
-  apt_repository: repo='deb http://ppa.launchpad.net/ondrej/php5/ubuntu trusty main' state=present
+#- name: Add PPA for latest PHP5.5
+#  apt_repository: repo='deb http://ppa.launchpad.net/ondrej/php5/ubuntu trusty main' state=present
 
-- name: Add PPA for latest PHP5.5 SRC
-  apt_repository: repo='deb-src http://ppa.launchpad.net/ondrej/php5/ubuntu trusty main' state=present
+#- name: Add PPA for latest PHP5.5 SRC
+#  apt_repository: repo='deb-src http://ppa.launchpad.net/ondrej/php5/ubuntu trusty main' state=present
 
 - name: Install php-fpm and dependencies
   apt: pkg={{ item }} state=present update_cache=yes force=yes

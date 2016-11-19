@@ -14,8 +14,7 @@
 
 - name: Vagrant - Install NGINX, Memcache, Beanstalk, GeoIP, MySQL and PHP-FPM
   hosts: vagrant
-  remote_user: root
-  sudo: yes
+  become: true
   roles:
     - nginx
     - php-fpm

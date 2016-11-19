@@ -24,7 +24,6 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/trusty64"
-    config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
     config.vm.synced_folder ".", "/var/goremote/", :owner => "www-data", :group => "www-data"
 
     config.vm.network "forwarded_port", guest: 80, host: 8888

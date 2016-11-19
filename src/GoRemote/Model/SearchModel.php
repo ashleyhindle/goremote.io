@@ -6,9 +6,10 @@ class SearchModel
 	public function search(\GoRemote\Application $app, $query)
 	{
 		$searchQuery = '%' . addcslashes($query, "%_") . '%';
+        $jobs = [];
 
         //select * from jobs inner join companies using(companyid) inner join sources using(sourceid) where match(companies.name, sources.name, jobs.position, jobs.description) against ('php' IN NATURAL LANGUAGE MODE);
-        $jobs = $app['db']->fetchAll(
+        $jobsFromDb = $app['db']->fetchAll(
         "select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.url as companyurl, sources.name as sourcename, sources.url as sourceurl  from jobs 
         inner join companies using(companyid) 
         inner join sources using(sourceid) 
@@ -27,6 +28,11 @@ class SearchModel
             $searchQuery
         ]
         );
+
+        foreach ($jobsFromDb as $job) {
+            $job['tags'] = (new JobModel())->extractBuzzwords($job['position'] . ' ' . $job['description']);
+            $jobs[] = $job;
+        }
 
         return $jobs;
 	}
