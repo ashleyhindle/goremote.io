@@ -79,7 +79,7 @@ class JobModel
 	// TODO - separate into own model, with methods for getting random message type, method for replacements and such
 	public function tweet($app)
 	{
-		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} {link} - work from anywhere! #remote #remotejobs";
+		$tweetMessage = "{companyname} are looking for {indefinitearticle} {position} {link} - work from anywhere! #remote #jobs";
 		$companyname = (!empty($this->company->twitter)) ? $this->company->twitter : trim($this->company->name);
 		if (empty(trim($companyname))) {
 			return true;
