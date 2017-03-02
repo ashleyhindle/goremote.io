@@ -140,6 +140,6 @@ class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterfac
 
 	protected function getJobsJson()
 	{
-		return $this->getFirebaseItem(13541679); // 13541679 is February 2017
+		return $this->getFirebaseItem(13764728); // 13764728 is March 2017
 	}
 }
