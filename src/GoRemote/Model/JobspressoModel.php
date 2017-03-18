@@ -5,7 +5,7 @@ use GoRemote\Model\JobModel;
 
 class JobspressoModel implements \GoRemote\Model\SourceInterface
 {
-	const SOURCE_URL = 'https://jobspresso.co/?feed=job_feed&job_types=designer%2Cdeveloper%2Cmarketing%2Cproject-mgmt%2Csales%2Csupport%2Csys-admin%2Ctester&search_location&job_categories&search_keywords';
+	const SOURCE_URL = 'https://jobspresso.co/?feed=job_feed&search_location&job_categories&search_keywords';
 	const SOURCE_NAME = 'jobspresso';
 	const SOURCE_ID = 7;
 
@@ -47,7 +47,7 @@ class JobspressoModel implements \GoRemote\Model\SourceInterface
 			$jobClass->sourceid = self::SOURCE_ID;
 
 			$fc = file_get_contents($jobClass->applyurl);
-			preg_match('/<img class="company_logo" src="(.+)" alt="(.+)" \/>/',
+			preg_match('/<img class="company_logo" src="(.+)" alt="(.+?)" \/>/',
 				$fc, $matches);
 
 			$jobClass->company->logo = (!empty($matches[1])) ? $matches[1] : '';			
