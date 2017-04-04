@@ -73,7 +73,8 @@ class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterfac
 			$chars = count_chars($kid['firstline'], 1);
 			$separators = ['|', '-', '•'];
 			$separator = $this->getValidSeparators($chars, $separators);
-			
+
+			// Not remote
 			if(preg_match($regex, $kid['firstline']) === 0) {
 				echo '.';
 				$this->markProcessed($item);
@@ -93,16 +94,25 @@ class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterfac
 			echo '#_#';
 
 			$buzzwords = $this->extractBuzzwords($kid['text']);
-			$jobClass->position = (!empty($buzzwords)) 
-				? implode(', ', $buzzwords)
-				: $kid['firstline'];
+
+			// https://news.ycombinator.com/item?id=14023417
+			$stolenRegex = "/\s*(?P<company>[^|]+?)\s*\|\s*(?P<title>[^|]+?)\s*\|\s*(?P<locations>[^|]+?)\s*(?:\|\s*(?P<attrs>.+))?$/";
+			$stolenResult = preg_match($stolenRegex, $kid['firstline'], $match);
+
+			if (!$stolenResult) {
+			    echo '&';
+                $this->markProcessed($item);
+                continue;
+            }
+
+			$jobClass->position = $match['title'];
 
 			$jobClass->applyurl = 'https://news.ycombinator.com/item?id=' . $item;
 			$jobClass->dateadded = (string) (new \DateTime())->setTimestamp($kid['time'])->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->description = $kid['text'];
 			$jobClass->sourceid = self::SOURCE_ID;
 			
-			$jobClass->company->name = $this->getCompanyName($kid['firstline'], $separator);
+			$jobClass->company->name = $match['company'];
 			$jobClass->company->twitter = '';
 			$jobClass->company->logo = '';
 
