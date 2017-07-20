@@ -7,7 +7,7 @@ $app = require_once __DIR__ . "/src/app.php";
 
 $console = &$app["console"];
 $console->add(new \GoRemote\Cli\CheckSourceCommand());
-$console->add(new \GoRemote\Cli\SendDailyDigestCommand());
+//$console->add(new \GoRemote\Cli\SendDailyDigestCommand());
 $console->add(new \GoRemote\Cli\TweetCommand());
 $console->add(new \GoRemote\Cli\UpdateCompanyTwittersCommand());
 $console->run();
