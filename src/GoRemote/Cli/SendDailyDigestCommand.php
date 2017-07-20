@@ -4,6 +4,7 @@ namespace GoRemote\Cli;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use DrewM\MailChimp\MailChimp;
 
 class SendDailyDigestCommand extends \Knp\Command\Command
 {
@@ -43,10 +44,13 @@ class SendDailyDigestCommand extends \Knp\Command\Command
 			return 0;
 		}
 
-		if (empty($listId)) {
-			$output->writeln('Invalid List Id'); // These should be checked/asserted in the 'addArgument' above
-			return 0;
-		}
+        if (empty($listId)) {
+            $output->writeln('Invalid List Id'); // These should be checked/asserted in the 'addArgument' above
+            return 0;
+        }
+
+            $output->writeln('DISABLED 2017-07-20 21:31');
+            return 0;
 
 		if ($isDryRun) {
 			$output->writeln('This is a dry run..');
@@ -60,15 +64,12 @@ class SendDailyDigestCommand extends \Knp\Command\Command
 		// Send 4pm GMT? Before work in SF, close to finishing work in the UK
 		$output->writeln("Found: {$latestJobCount} latest jobs");
 
+        $MailChimp = new MailChimp($apiKey);
+
 		if (empty($latestJobCount)) {
 			$output->writeln("Not enough jobs to send an email campaign, quitting..");
 			return 0;
 		}
-
-		$MailChimp = new \Drewm\MailChimp($apiKey);
-
-		//print_r($MailChimp->call('/lists/list'));
-		//exit(1);
 
 		$createResponse = $MailChimp->call('/campaigns/create',
 			[

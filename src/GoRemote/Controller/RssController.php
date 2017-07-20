@@ -7,16 +7,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RssController
 {
-    public function mainAction(Application $app)
+    public function mainAction(Request $request, Application $app)
     {
-    	$latestJobs = $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.twitter as companytwitter, companies.url as companyurl, companies.logo as companylogo, sources.name as sourcename, sources.url as sourceurl from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL 1 MONTH and jobs.datedeleted=0 order by jobs.dateadded desc limit 70');
+        $searchQ = $request->get('search', null);
+        $searchQ = ($searchQ == 'All') ? null : $searchQ;
+    	$latestJobs = (new \GoRemote\Model\SearchModel())->search($app, $searchQ);
+        $descriptionExtra = !is_null($searchQ) ? ' matching "' . $request->get('search') .'"' : '';
     	$rss = <<<RSS
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>All Remote Jobs In One Place</title>
+    <title>All Remote Jobs In One Place{$descriptionExtra}</title>
     <link>https://goremote.io/rss</link>
-    <description>Recent jobs aggregated on GoRemote.io</description>
+    <description>Recent jobs aggregated on GoRemote.io {$descriptionExtra}</description>
     <language>en-US</language>
     <ttl>180</ttl>
 RSS;
@@ -24,8 +27,8 @@ RSS;
 		// TODO Use twig for RSS as view is in the controller :(
 		foreach ($latestJobs as $job) {
 			$job['dateadded'] = date('r', strtotime($job['dateadded']));
-			$job['position'] = str_replace('&ndash', '', htmlentities($job['position']));
-			$job['companyname'] = htmlentities($job['companyname']);
+			$job['position'] = htmlspecialchars($job['position'], ENT_QUOTES, 'UTF-8');
+            $job['companyname'] = htmlspecialchars($job['companyname'], ENT_QUOTES, 'UTF-8');
 			$image = (!empty($job['companylogo'])) ? "<img src='{$job['companylogo']}'>" : '';
 			$rss .= <<<RSS
 
@@ -49,6 +52,6 @@ RSS;
 </rss>
 RSS;
 
-		return new Response($rss, 200, array('Content-Type' => 'application/xml'));
+		return new Response($rss, 200, array('Content-Type' => 'application/xml; charset=utf-8'));
     }
 }
