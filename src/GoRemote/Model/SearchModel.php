@@ -18,6 +18,7 @@ class SearchModel
             inner join sources using(sourceid) 
             where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL 2 MONTH
             and jobs.datedeleted=0 
+            and jobs.dateadded <= UTC_TIMESTAMP()
         and jobs.position <> '' 
             and (
                 companies.name like ? or 
