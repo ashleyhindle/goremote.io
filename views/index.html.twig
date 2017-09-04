@@ -7,10 +7,10 @@
     {% for job in latestJobs %}
     	<li class='job'>
     		<a href='{{ path('job-by-id-title', {id: job.jobid, title: slugify(job.position)}) }}'>
-                <div class="position">{{job.position}}</div>
+                <div class="position">{{job.position|striptags}}</div>
                 <span class="right date show-for-medium-up">{{job.dateadded_unixtime|date('M d')}}</span>
                 <span class="right source show-for-medium-up">{{job.sourcename}}</span>
-                <span class="company">{{job.companyname}}</span>
+                <span class="company">{{job.companyname|striptags}}</span>
             </a>
             {% for tag in job.tags %}
                 {%  if loop.index < 12 %}
