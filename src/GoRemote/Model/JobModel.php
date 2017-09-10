@@ -1,6 +1,8 @@
 <?php
 namespace GoRemote\Model;
 
+use Doctrine\DBAL\Connection;
+
 class JobModel
 {
 	public $jobid = 0;
@@ -42,8 +44,10 @@ class JobModel
 		$this->company = new \GoRemote\Model\CompanyModel();
 	}
 
-	public function insert(\Doctrine\DBAL\Connection $db)
+	public function insert(Connection $db)
 	{
+
+	    $this->position = strip_tags($this->position);
 
 		$jobDuplicate = $db->fetchColumn(
 			'select jobid from jobs where (dateadded=? and sourceid=? and applyurl=?) or (position=? and companyid=? and dateadded > NOW() - INTERVAL 1 MONTH)',
