@@ -14,9 +14,9 @@
             </a>
             <div class="tags">
             {% for tag in job.tags %}
-                {%  if loop.index < 5 %}
+                {%  if loop.index < 7 %}
                     <span class="label radius secondary"><a href="/search/{{ tag|url_encode }}">{{ tag }}</a></span>
-                {% elseif loop.index == 5 %}
+                {% elseif loop.index == 7 %}
                     ...
                 {% endif %}
             {%  endfor %}
