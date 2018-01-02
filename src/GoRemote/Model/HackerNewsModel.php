@@ -1,9 +1,9 @@
 <?php
 namespace GoRemote\Model;
 
-use GoRemote\Model\JobModel;
+use Doctrine\DBAL\Connection;
 
-class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterface
+class HackerNewsModel extends JobModel implements SourceInterface
 {
 	const SOURCE_URL = 'https://hacker-news.firebaseio.com/v0/item/{ITEM}.json?print=pretty';
 	const SOURCE_NAME = 'hackernews';
@@ -12,15 +12,21 @@ class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterfac
 	private $processedItems = [];
 	private $db;
 
-	public function __construct(\Doctrine\DBAL\Connection $db)
+    /**
+     * HackerNewsModel constructor.
+     * @param Connection $db
+     */
+	public function __construct(Connection $db)
 	{
+	    parent::__construct();
 		$this->db = $db;
-		$processedItems = $this->db->fetchAll('select itemid from hackernews');
-		foreach ($processedItems as $item) {
-			$this->processedItems[] = $item['itemid'];
-		}
+		$this->processedItems = array_column($this->db->fetchAll('select itemid from hackernews'), 'itemid');
 	}
 
+    /**
+     * @param $item
+     * @return string
+     */
 	private function getFirebaseItem($item)
 	{
 		return json_decode(
@@ -33,6 +39,11 @@ class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterfac
 		);
 	}
 
+    /**
+     * @param array $chars
+     * @param array $separators
+     * @return bool|string
+     */
 	private function getValidSeparators(array $chars, array $separators)
 	{
 		$valid = false;
@@ -46,46 +57,53 @@ class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterfac
 		return $valid;
 	}
 
+    /**
+     * @return array
+     */
 	public function getJobs()
 	{
 		$jobs = [];
 		$json = $this->getJobsJson();
 		$tz = new \DateTimeZone('Europe/London');
 		$kids = $json['kids'];
-		$regex = "/(?<!no)(?<!not) ?remote/i";
+		$notRemoteRegex = "/(?<!no)(?<!not) ?remote/i";
+
+		$kids = [16054639];
 
 		foreach($kids as $item) {
-			if (in_array($item, $this->processedItems)) {
+		    $alreadyProcessed = in_array($item, $this->processedItems);
+
+			if ($alreadyProcessed) {
 				echo '*';
-				continue; // Already processed it
+				continue;
 			}
 
 			$kid = $this->getFirebaseItem($item);
-			$jobClass = new JobModel();
+            $missingData = (array_key_exists('text', $kid) === false);
 
-			if (array_key_exists('text', $kid) === false) {
+			if ($missingData) {
 				$this->markProcessed($item);
 				continue;
 			}
 
-			$kid['text'] = str_replace('<p>', "\n", $kid['text']);
+            $job = new JobModel();
+
+            $kid['text'] = $this->standardiseText($kid['text']);
 			$kid['firstline'] = implode("\n", array_slice(explode("\n", $kid['text']), 0, 1));
 			$chars = count_chars($kid['firstline'], 1);
-			$separators = ['|', '-', '•'];
-			$separator = $this->getValidSeparators($chars, $separators);
 
-			// Not remote
-			if(preg_match($regex, $kid['firstline']) === 0) {
-				echo '.';
-				$this->markProcessed($item);
-				continue;
-			} elseif(!$separator) {
-				// For now we only care about the ones with nice formatting with separators (| or -)
-				// Let's Encrypt | Full Time | Remote
-				// Trail | London | Full Time, Remote
-				// Joyent, San Francisco / Vancouver | ONSITE or REMOTE | Software engineer
-				// this _obviously_ limits us, but every comment is different so this is pretty hard
-				// Maybe I need NLP?
+			$separator = $this->getValidSeparators($chars, ['|', '-', '•']);
+
+			$notRemote = preg_match($notRemoteRegex, $kid['firstline']) === 0;
+
+			if($notRemote) {
+                echo '.';
+                $this->markProcessed($item);
+                continue;
+            }
+
+            // No separator to separate company name and position (Google | Senior Engineer | REMOTE or Ireland)
+            if(!$separator) {
 				echo '-';
 				$this->markProcessed($item);
 				continue;
@@ -93,30 +111,25 @@ class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterfac
 
 			echo '#_#';
 
-			$buzzwords = $this->extractBuzzwords($kid['text']);
+			$jobExtractionRegex = "/\s*(?P<company>[^|]+?)\s*\|\s*(?P<title>[^|]+?)\s*\|\s*(?P<locations>[^|]+?)\s*(?:\|\s*(?P<attrs>.+))?$/";
+			$jobExtractionResult = preg_match($jobExtractionRegex, $kid['firstline'], $extractionMatch);
 
-			// https://news.ycombinator.com/item?id=14023417
-			$stolenRegex = "/\s*(?P<company>[^|]+?)\s*\|\s*(?P<title>[^|]+?)\s*\|\s*(?P<locations>[^|]+?)\s*(?:\|\s*(?P<attrs>.+))?$/";
-			$stolenResult = preg_match($stolenRegex, $kid['firstline'], $match);
-
-			if (!$stolenResult) {
+			if (!$jobExtractionResult) {
 			    echo '&';
                 $this->markProcessed($item);
                 continue;
             }
 
-			$jobClass->position = $match['title'];
+			$job->position = $extractionMatch['title'];
 
-			$jobClass->applyurl = 'https://news.ycombinator.com/item?id=' . $item;
-			$jobClass->dateadded = (string) (new \DateTime())->setTimestamp($kid['time'])->setTimezone($tz)->format('Y-m-d H:i:s');
-			$jobClass->description = $kid['text'];
-			$jobClass->sourceid = self::SOURCE_ID;
+			$job->applyurl = 'https://news.ycombinator.com/item?id=' . $item;
+			$job->dateadded = (string) (new \DateTime())->setTimestamp($kid['time'])->setTimezone($tz)->format('Y-m-d H:i:s');
+			$job->description = $kid['text'];
+			$job->sourceid = self::SOURCE_ID;
 			
-			$jobClass->company->name = $match['company'];
-			$jobClass->company->twitter = '';
-			$jobClass->company->logo = '';
+			$job->company->name = $extractionMatch['company'];
 
-			$jobs[] = $jobClass;
+			$jobs[] = $job;
 
 			$this->markProcessed($item);
 
@@ -137,19 +150,8 @@ class HackerNewsModel extends JobModel implements \GoRemote\Model\SourceInterfac
 			);
 	}
 
-	private function getCompanyName($text, $separator)
-	{
-		$name = '';
-		$chars = count_chars($text, 1);
-		if (array_key_exists(ord($separator), $chars) && $chars[ord($separator)] >= 2) {
-			$name = html_entity_decode(trim(current(explode($separator, $text))));
-		}
-
-		return strip_tags($name);
-	}
-
 	protected function getJobsJson()
 	{
-		return $this->getFirebaseItem(15824597); // 15824597 is December 2017
+		return $this->getFirebaseItem(16052538); // 16052538 is January 2018
 	}
 }
