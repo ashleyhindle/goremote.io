@@ -21,10 +21,12 @@
             </a>
             <div class="tags">
             {% for tag in job.tags %}
-                {%  if loop.index < 7 %}
-                    <span class="label radius secondary"><a href="/search/{{ tag|url_encode }}">{{ tag }}</a></span>
-                {% elseif loop.index == 7 %}
-                    ...
+                {%  if loop.index < 10 %}
+                    <span class="label radius secondary{% if loop.index > 3 %} visible-for-medium-up{% endif %}"><a href="/search/{{ tag|url_encode }}">{{ tag }}</a></span>
+                {% endif %}
+
+                {% if loop.index == 3 %}
+                    <span class="label radius secondary visible-for-small-down"><a>...</a></span>
                 {% endif %}
             {%  endfor %}
             </div>
