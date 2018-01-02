@@ -1,15 +1,16 @@
 <?php
 namespace GoRemote\Controller;
 
+use GoRemote\Model\JobModel;
+use GoRemote\Model\SearchModel;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ApiController
 {
 	public function jobsAction(Application $app)
 	{
-		$latestJobs = (new \GoRemote\Model\JobModel())->getLatestJobs($app);
+		$latestJobs = (new JobModel())->getLatestJobs($app);
         return $app->json($latestJobs);
 	}
 
@@ -26,6 +27,7 @@ class ApiController
     public function companiesAction(Request $request, Application $app)
     {
     	$companies = $app['db']->fetchAll('select * from companies');
+
         return $app->json($companies);
     }
 
@@ -39,16 +41,18 @@ class ApiController
         return $app->json($companies);
     }
 
+    // No pagination - super basic API
     public function searchAction(Request $request, Application $app)
     {
         return $app->json(
-        		(new \GoRemote\Model\SearchModel())->search($app, $request->get('query'))
+        		(new SearchModel())->search($app, $request->get('query'))
         );
     }
 
     public function sourcesAction(Application $app)
     {
     	$sources = $app['db']->fetchAll('select * from sources');
+
     	return $app->json($sources);
     }
 
@@ -58,6 +62,7 @@ class ApiController
     		[
     			$request->get('id')
     		]);
+
     	return $app->json($sources);
     }
 }

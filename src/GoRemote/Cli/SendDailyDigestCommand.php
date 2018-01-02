@@ -1,12 +1,13 @@
 <?php
 namespace GoRemote\Cli;
 
+use Knp\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use DrewM\MailChimp\MailChimp;
 
-class SendDailyDigestCommand extends \Knp\Command\Command
+class SendDailyDigestCommand extends Command
 {
 	private $app;
 

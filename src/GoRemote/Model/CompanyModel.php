@@ -1,15 +1,17 @@
 <?php
 namespace GoRemote\Model;
 
+use Doctrine\DBAL\Connection;
+
 class CompanyModel
 {
 	public $id = 0;
-	public $name;
+	public $name = '';
 	public $url = '';
-	public $twitter;
-	public $logo;
+	public $twitter = '';
+	public $logo = '';
 
-	public function insert(\Doctrine\DBAL\Connection $db)
+	public function insert(Connection $db)
 	{
 		$duplicateId = $db->fetchAssoc(
 			'select companyid, url, logo from companies where name=?',
@@ -28,6 +30,7 @@ class CompanyModel
                     ->execute();
             }
 			$this->id = $duplicateId['companyid'];
+
 			return $duplicateId['companyid'];
 		}
 

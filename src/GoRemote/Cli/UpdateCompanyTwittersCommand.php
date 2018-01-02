@@ -1,16 +1,16 @@
 <?php
 namespace GoRemote\Cli;
 
+use Knp\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
 /*
 Loop through a job per company, go to apply url and get the twitter username (if available)
 Update companies table
 */
 
-class UpdateCompanyTwittersCommand extends \Knp\Command\Command
+class UpdateCompanyTwittersCommand extends Command
 {
 	protected function configure()
 	{
