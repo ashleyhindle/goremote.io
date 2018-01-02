@@ -40,7 +40,7 @@ $app->register(new TwigServiceProvider(), [
 
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     $twig->getExtension('core')->setTimezone('UTC');
-    
+
     $function = new Twig_SimpleFunction('slugify', function($string) use($app) {
         $string = preg_replace('/[^ a-zA-Z0-9\/\-]/', '', $string);
         return str_replace(
@@ -53,7 +53,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     $twig->addFunction($function);
 
     $filter = new Twig_SimpleFilter('clickable', function($string) use($app) {
-        return preg_replace('/(https?:\/\/[a-zA-Z0-9\.\-\/\?\=#]+)/', '<a href="$1" target="_blank">$1</a>', $string);
+        return preg_replace('/(https?:\/\/[a-zA-Z0-9\.\-\/\?\=#_]+)/', '<a href="$1" target="_blank">$1</a>', $string);
     });
 
     $twig->addFilter($filter);
