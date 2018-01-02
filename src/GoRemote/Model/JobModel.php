@@ -2,6 +2,7 @@
 namespace GoRemote\Model;
 
 use Doctrine\DBAL\Connection;
+use Silex\Application;
 
 class JobModel
 {
@@ -41,9 +42,13 @@ class JobModel
 
     public function __construct()
 	{
-		$this->company = new \GoRemote\Model\CompanyModel();
+		$this->company = new CompanyModel();
 	}
 
+	public function standardiseText($text)
+    {
+        return html_entity_decode(str_replace('<p>', "\n", $text), ENT_QUOTES | ENT_HTML5);
+    }
 	public function insert(Connection $db)
 	{
 
@@ -125,7 +130,7 @@ class JobModel
         return array_unique($matches);
     }
 
-	public function getLatestJobs(\GoRemote\Application $app, $interval=self::DEFAULT_SEARCH_INTERVAL)
+	public function getLatestJobs(Application $app, $interval=self::DEFAULT_SEARCH_INTERVAL)
 	{
 	    $jobs = [];
 		$jobsFromDb = $app['db']->fetchAll('select jobs.*, unix_timestamp(jobs.dateadded) as dateadded_unixtime, companies.name as companyname, companies.twitter as companytwitter, companies.url as companyurl, sources.name as sourcename, sources.url as sourceurl from jobs inner join companies using(companyid) inner join sources using(sourceid) where jobs.dateadded > UTC_TIMESTAMP() - INTERVAL ? SECOND and jobs.position <> "" and jobs.datedeleted=0 order by jobs.dateadded desc limit 170',
