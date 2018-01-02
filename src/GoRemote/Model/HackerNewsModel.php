@@ -34,7 +34,7 @@ class HackerNewsModel extends JobModel implements SourceInterface
 				str_replace(
 					'{ITEM}', $item, static::SOURCE_URL
 				)
-			), 
+			),
 			true
 		);
 	}
@@ -67,8 +67,6 @@ class HackerNewsModel extends JobModel implements SourceInterface
 		$tz = new \DateTimeZone('Europe/London');
 		$kids = $json['kids'];
 		$notRemoteRegex = "/(?<!no)(?<!not) ?remote/i";
-
-		$kids = [16054639];
 
 		foreach($kids as $item) {
 		    $alreadyProcessed = in_array($item, $this->processedItems);
@@ -126,7 +124,7 @@ class HackerNewsModel extends JobModel implements SourceInterface
 			$job->dateadded = (string) (new \DateTime())->setTimestamp($kid['time'])->setTimezone($tz)->format('Y-m-d H:i:s');
 			$job->description = $kid['text'];
 			$job->sourceid = self::SOURCE_ID;
-			
+
 			$job->company->name = $extractionMatch['company'];
 
 			$jobs[] = $job;
