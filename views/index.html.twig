@@ -12,11 +12,15 @@
                 <span class="right source show-for-medium-up">{{job.sourcename}}</span>
                 <span class="company">{{job.companyname|striptags}}</span>
             </a>
+            <div class="tags">
             {% for tag in job.tags %}
-                {%  if loop.index < 12 %}
+                {%  if loop.index < 5 %}
                     <span class="label radius secondary"><a href="/search/{{ tag|url_encode }}">{{ tag }}</a></span>
+                {% elseif loop.index == 5 %}
+                    ...
                 {% endif %}
             {%  endfor %}
+            </div>
     	</li>
     {% endfor %}
     </ul>

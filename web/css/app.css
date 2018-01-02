@@ -1,4 +1,4 @@
-#twitter-widget-0 { 
+#twitter-widget-0 {
   margin-top: 8px !important;
   margin-right:5px !important;
 }
@@ -18,26 +18,32 @@ ul {
 }
 
 .job {
-	padding: 3px;
 	border-bottom: 1px solid #bbbbbb;
-	padding: 10px;
+    background-color: #F1F1F1;
+    margin-bottom: 1rem;
 }
 
- .job:nth-of-type(2n) {
- 	background-color: #f7f7f7;
- }
-
+ /*.job:nth-of-type(2n) {*/
+ 	/*background-color: #f7f7f7;*/
+ /*}*/
+/**/
 .job:hover {
 	background-color: #FAFAFA;
 }
 
 .job a {
 	display: block;
+    padding: 0.6rem;
+}
+
+.job .tags {
+    width: 100%;
+    background-color: #BBBBBB;
+    padding: 0.3rem;
 }
 
 .job .company {
 	color: #666666;
-	font-weight: bold;
 	font-size: 0.8rem;
 }
 
@@ -47,6 +53,7 @@ ul {
 
 .job .position {
 	overflow: hidden;
+    font-weight: bold;
 }
 
 .job .date {
