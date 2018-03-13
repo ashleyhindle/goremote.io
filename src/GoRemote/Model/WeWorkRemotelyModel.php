@@ -5,7 +5,7 @@ use GoRemote\Model\JobModel;
 
 class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 {
-	const SOURCE_URL = 'https://weworkremotely.com/jobs.rss';
+	const SOURCE_URL = 'https://weworkremotely.com/remote-jobs.rss';
 	const SOURCE_NAME = 'weworkremotely';
 	const SOURCE_ID = 1;
 
