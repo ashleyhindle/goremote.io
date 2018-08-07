@@ -42,6 +42,13 @@
 </script>
 {% endverbatim %}
 
+
+    {% if job.dateadded_unixtime < (date().timestamp - 2592000) %}
+        <div data-alert class="alert-box warning radius">
+            Please be aware this job posting is over 1 month old, and is likely not accepting any more applicants
+        </div>
+    {% endif %}
+
 	{% if job.companylogo is not empty %}
     	<img class='right not-too-wide' src='{{job.companylogo}}' />
         {%  else %}
