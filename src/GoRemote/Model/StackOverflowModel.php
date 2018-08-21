@@ -62,8 +62,8 @@ class StackOverflowModel implements \GoRemote\Model\SourceInterface
 			return '';
 		}
 
-		$fc = file_get_contents('https://stackoverflow.com/'.$companyUrl);
-		$resultCount = preg_match('/href="?\'?(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(?!share)(\w+)"?\'?/u', $fc, $matches);
+		$fc = urldecode(file_get_contents('https://stackoverflow.com/'.$companyUrl));
+		$resultCount = preg_match('/redirectUrl=(?:https?:)?\/\/(?:www\.)?twitter\.com\/(?!search)(?!share)(\w+)/u', $fc, $matches);
 
 		if (empty($resultCount)) {
 			return '';
