@@ -5,7 +5,7 @@ use GoRemote\Model\JobModel;
 
 class GolangProjectsModel implements \GoRemote\Model\SourceInterface
 {
-	const SOURCE_URL = 'http://golangprojects.com/remoterss.xml';
+	const SOURCE_URL = 'https://golangprojects.com/remoterss.xml';
 	const SOURCE_NAME = 'golangprojects';
 	const SOURCE_ID = 9;
 
