@@ -37,6 +37,10 @@ class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 		$jobs = [];
 		$tz = new \DateTimeZone('Europe/London');
 
+		if (is_null($this->xml)) {
+		    die('Failed to retrieve XML from: ' . self::SOURCE_URL);
+        }
+
         $namespaces = $this->xml->getNamespaces(true);
 		foreach($this->getRss()[0]->channel->item as $job) {
 			$jobClass = new JobModel();
