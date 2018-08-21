@@ -57,7 +57,7 @@ class AuthenticJobsModel implements \GoRemote\Model\SourceInterface
 			libxml_clear_errors();
 
 			$xpath = new \DOMXpath($doc);
-			$elements = $xpath->query("//li[@class='ss-twitter']");
+			$elements = $xpath->query("//a[contains(@class, 'ss-twitter')]");
 			$jobClass->company->twitter = ($elements->length > 0) ? str_replace('@', '', trim($elements->item(0)->textContent)) : '';
 			$jobClass->company->logo = '';
 
