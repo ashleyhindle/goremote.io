@@ -35,7 +35,7 @@ class JobController
 
     public function addAction(Application $app)
     {
-    	$sources = $app['db']->fetchAll('select * from sources');
+    	$sources = $app['db']->fetchAll('select * from sources where enabled=1 and datedeleted < NOW()');
     	return $app['twig']->render('add.html.twig', ['sources' => $sources]);
     }
 }
