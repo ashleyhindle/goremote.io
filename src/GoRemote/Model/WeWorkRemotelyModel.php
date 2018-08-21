@@ -39,7 +39,7 @@ class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 
 		$xml = $this->getRss();
 		if (is_null($xml)) {
-		    die('Failed to retrieve XML from: ' . self::SOURCE_URL);
+		    die('Failed to retrieve XML from: ' . self::SOURCE_URL . PHP_EOL);
         }
 
         $namespaces = $this->xml->getNamespaces(true);
