@@ -37,6 +37,7 @@ class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 		$jobs = [];
 		$tz = new \DateTimeZone('Europe/London');
 
+        $namespaces = $this->xml->getNamespaces(true);
 		foreach($this->getRss()[0]->channel->item as $job) {
 			$jobClass = new JobModel();
 
@@ -46,11 +47,7 @@ class WeWorkRemotelyModel implements \GoRemote\Model\SourceInterface
 			$jobClass->dateadded = (string) (new \DateTime($job->pubDate))->setTimezone($tz)->format('Y-m-d H:i:s');
 			$jobClass->description = (string) $job->description;
 			$jobClass->sourceid = self::SOURCE_ID;
-
-			$logoRegex = '/<img alt="Resized_logo" src="(.+)" \/>/';
-			preg_match($logoRegex, $jobClass->description, $matches);
-			$jobClass->description = preg_replace($logoRegex, '', $jobClass->description);
-			$jobClass->company->logo = (!empty($matches[1])) ? $matches[1] : '';
+			$jobClass->company->logo = trim((string) $job->children($namespaces['media'])->content->attributes()->url) ?: '';
 			$jobClass->company->twitter = '';
 
 			$jobs[] = $jobClass;
