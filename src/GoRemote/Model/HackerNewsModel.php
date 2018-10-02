@@ -150,6 +150,6 @@ class HackerNewsModel extends JobModel implements SourceInterface
 
 	protected function getJobsJson()
 	{
-		return $this->getFirebaseItem(17902901); // September 2018
+		return $this->getFirebaseItem(18113144); // October 2018
 	}
 }
