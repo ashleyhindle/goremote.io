@@ -90,4 +90,5 @@ ul {
 .description {
 	border-top: 1px solid #999999;
 	margin-bottom: 1rem;
+	overflow: auto;
 }
